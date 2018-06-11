@@ -1,0 +1,17 @@
+// holds containers and aligners in general
+:root {
+    font-size: $rembase;
+}
+
+.wrapper {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    @include mQ(3000px,
+    576px) {
+        max-width: 70%;
+    }
+
+}

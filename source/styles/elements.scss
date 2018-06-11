@@ -1,0 +1,15 @@
+// non-tag elements only!
+
+// general console buttons
+.btn {
+    @include btn {
+        background-color: map-get($color, orange);
+    }
+}
+
+
+// console display
+.display {
+    // width, height, bgColor, fontColor, fontWeight, fontSize, borderRadius
+    @include scoreDisplay(250, 200, black, yellow, 700, 190, 10%)
+}
