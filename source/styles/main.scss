@@ -113,3 +113,13 @@ header {
 .blue-hit {
   background-color: darken(map-get($color, blue), $darkenIntensity); // !important;  not sure if it's needed at all!
 }
+
+
+
+// ---------------------------
+
+.reset {
+    @include btn {
+        background-color: map-get($color, red);
+    }
+}
