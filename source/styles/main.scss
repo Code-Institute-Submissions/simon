@@ -123,3 +123,9 @@ header {
         background-color: map-get($color, red);
     }
 }
+
+.power-off {
+    @include btn {
+        background-color: map-get($color, red);
+    }
+}
