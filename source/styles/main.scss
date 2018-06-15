@@ -117,7 +117,7 @@ header {
 
 
 // ---------------------------
-
+/* buttons with special needs*/
 .reset {
     @include btn {
         background-color: map-get($color, red);
@@ -127,5 +127,11 @@ header {
 .power-off {
     @include btn {
         background-color: map-get($color, red);
+    }
+}
+
+.sound {
+    @include btn {
+        width: pix2Rem(150);
     }
 }

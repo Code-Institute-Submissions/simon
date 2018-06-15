@@ -2,33 +2,33 @@
 var userSeq = []; // to store user sequence
 var comSeq = []; // to store computer generated sequence
 
-var soundThemes = {
+var soundThemesObj = {
     android: [
         "source/sounds/android/wing0.wav",
         "source/sounds/android/wing1.wav",
         "source/sounds/android/wing2.wav",
         "source/sounds/android/wing3.wav"
-        ],
+    ],
     simon: [
         "source/sounds/simon/wing0.mp3",
         "source/sounds/simon/wing1.mp3",
         "source/sounds/simon/wing2.mp3",
         "source/sounds/simon/wing3.mp3"
-        ],
+    ],
     river_raid: [
         "source/sounds/river_raid/wing0.wav",
         "source/sounds/river_raid/wing1.wav",
         "source/sounds/river_raid/wing2.wav",
         "source/sounds/river_raid/wing3.wav"
-        ],
+    ],
     high_pitched: [
         "source/sounds/high_pitched/wing0.wav",
         "source/sounds/high_pitched/wing1.wav",
         "source/sounds/high_pitched/wing2.wav",
         "source/sounds/high_pitched/wing3.wav"
-        ]
+    ]
 }
-
+var soundTheme = "simon";
 
 
 var id, color = 0;
@@ -40,6 +40,11 @@ $(document).ready(function() {
 
     // power on simon!
     $("#power").click(function() {
+
+        // toggle through sound themes!
+        $(".sound").click(function() {
+            toggleSoundThemes(debug = 1);
+        });
 
 
         if ($(this).hasClass("power-off")) {
@@ -65,6 +70,12 @@ $(document).ready(function() {
                 else {
                     console.log("Should never get here!")
                 }
+
+
+
+
+                // need a function to turn off
+                // need another function to reset
 
                 // generate random sequence
                 genRandom();
@@ -105,7 +116,7 @@ function genRandom() {
 
 function pressWing(input, debug = 0) {
 
-    if (debug > 0) { console.log(">> pressWing()") }
+    if (debug > 0) { console.log("\n>> pressWing()") }
 
     if (Number.isInteger(input)) {
 
@@ -113,7 +124,7 @@ function pressWing(input, debug = 0) {
         var wing = $(`#${input}`)
         var wingClass = wingIdtoClass(input);
         wing.addClass(wingClass);
-        playTune(input, theme="river_raid") // play tune
+        playTune(input) // play tune
 
         if (debug > 0) { console.log("\tinput is a single integer:", input, "wingClass =", wingClass) };
     }
@@ -158,8 +169,42 @@ function wingIdtoClass(i) {
 }
 
 
-function playTune(wing, theme = "simon") {
+function playTune(wing, theme = soundTheme) {
 
-    var tune = new Audio(soundThemes[theme][wing]);
-    tune.play();
+    if (soundTheme !== "mute") {
+        var tune = new Audio(soundThemesObj[theme][wing]);
+        tune.play();
+    }
+}
+
+function toggleSoundThemes(debug = 0) {
+
+    if (debug > 0) { console.log("\n>> toggleSoundThemes()") }
+
+    var button = $(".sound");
+
+    if (soundTheme === "simon") {
+        soundTheme = "river_raid";
+        button.html(`${soundTheme} <i class="fas fa-volume-up"></i>`);
+    }
+    else if (soundTheme === "river_raid") {
+        soundTheme = "android";
+        button.html(`${soundTheme} <i class="fas fa-volume-up"></i>`);
+    }
+    else if (soundTheme === "android") {
+        soundTheme = "high_pitched";
+        button.html(`${soundTheme} <i class="fas fa-volume-up"></i>`);
+    }
+    else if (soundTheme === "high_pitched") {
+        soundTheme = "mute";
+        button.html(`muted <i class="fas fa-volume-off"></i>`);
+    }
+    else {
+        soundTheme = "simon";
+        button.html(`${soundTheme} <i class="fas fa-volume-up"></i>`);
+    }
+    
+    if (debug > 0) { console.log("\tsoundTheme = ", soundTheme) }
+
+
 }
