@@ -29,8 +29,10 @@ var soundThemesObj = {
     ]
 }
 var soundTheme = "simon";
-var levelsNum = 20 // maximun number of levels. users reaching this level will win.
-var currentLevel = 0 // shows current level 
+var levelsNum = 20; // maximun number of levels. users reaching this level will win.
+var currentLevel = 0; // shows current level 
+var simonLevelData; // hold currentLevel simon selections if currentLevel = 3 then simonLevelData.length = 3
+var userProgress = 0; // what step in the sequence the user is on. eg  level 6 , 4 keys pressed right so far then userProgress = 4
 
 
 //1- start board sequence
@@ -225,53 +227,27 @@ function userPlay() {
 
     $("#1").click(function() {
         simulateClick(1);
-        pushUserSelection(1);
-        checkSelection();
+        checkData(1);
     })
 
     $("#2").click(function() {
         simulateClick(2);
-        pushUserSelection(2);
-        checkSelection();
+        checkData(2);
     })
 
 
     $("#3").click(function() {
         simulateClick(3);
-        pushUserSelection(3);
-        checkSelection();
+        checkData(3);
     })
 
 
     $("#4").click(function() {
         simulateClick(4);
-        pushUserSelection(4);
-        checkSelection();
+        checkData(4);
     })
 
 }
-
-
-function pushUserSelection(input) {
-    if (currentLevel === 1) {
-        userSelection.push(input);
-    }
-    else {
-
-        for (var i = 0; i < currentLevel; i++) {
-            if (i < currentLevel - 1) {
-
-                continue;
-            }
-            console.log("\n>> pushUserSelection(): currentLevel, i = ", currentLevel, i)
-            userSelection[i] = input;
-        }
-    }
-
-    console.log("\n>> pushUserSelection(): userSelection = ", userSelection);
-
-}
-
 
 function checkSelection() {
     // currentLevel;
@@ -305,25 +281,53 @@ function checkSelection() {
 
 
 // check user selection
-function checkData() {
+function checkData(input) {
 
-    /*
-    1.  analyse data:   only push to "userSelection" list if the selection is correct
-    2.  
-        if selection is valid:
+
+
+    //  eg: 
+    //      currentLevel   = 2  
+    //      simonLevelData = [2, 2]
+
+    console.log("\ncheckData():");
+    console.log("previousLevel = ", currentLevel);
+    console.log("userProgress = ", userProgress);
+    console.log("simonLevelData[userProgress] = ", simonLevelData[userProgress]);
+    console.log("key pressed = ", input);
+
+    var pass = true;
+    // check userSelection with simonLevelData on the fly!
+    if (input === simonLevelData[userProgress]) {
+        console.log("\tcorrect user selection!", simonLevelData[userProgress])
+        userSelection[userProgress] = input;
+        userProgress++;
+    }
+    else {
+        console.log("\tWRONG KEY!", input, "expected = ", simonLevelData[userProgress])
+        // alert("wrong key pressed! console now reseting!")
+        resetSimon();
+        pass = false;
+        setTimeout(function() {
+            startSimon();
+        }, 2000)
+ 
+    };
+
+
+    console.log("len simon = ", simonLevelData.length, "len user = ", userSelection.length)
+
+    if (simonLevelData.length === userSelection.length && pass) {
+        setTimeout(function() {
             currentLevel++;
-            playsimon;
-            
-        if selection invalid:
-            push "err" to console;
-            resetSimon();
+            userProgress = 0;
             simonPlay();
-    */
-    
+        }, 1000);
+    }
 
 
 
 
+    // console.log("userProgress = ", userProgress, "userSelection = ", userSelection)
 
 }
 
@@ -335,8 +339,9 @@ function resetSimon() {
     userSelection = []; // reset all selections currently held
     simonSelection = []; // reset all selections currently held
     currentLevel = 0; // reset back to 0
+    userProgress = 0;
     intialiseSimon();
-    pushToConsole(currentLevel) // push to console
+    // pushToConsole(currentLevel) // push to console
     console.log("console reset!")
 }
 
@@ -368,6 +373,7 @@ function simonPlay(cheat = false, level = 0) {
         test:   allows playing of the simon-held selections without 
                 having to complete the sequence
         */
+    console.log("\nsimonPlay():")
 
     if (cheat) {
         if (level == 0) {
@@ -380,6 +386,10 @@ function simonPlay(cheat = false, level = 0) {
 
     pushToConsole(currentLevel);
 
+    // set data with respect to currentLevel
+    simonLevelData = simonSelection.slice(0, currentLevel);
+    console.log("simonLevelData = ", simonLevelData)
+
     if (simonSelection.length > 1) {
         var i = 0; // counter for setInterval loop
         var inter = setInterval(function() {
@@ -387,7 +397,7 @@ function simonPlay(cheat = false, level = 0) {
             i++;
             // console.log("simonSelection[i-1] = ", simonSelection[i - 1], i, currentLevel)
             if (i >= currentLevel) {
-                console.log("inter cleared i, currentLevel", i, currentLevel)
+                console.log("\tinter cleared!", "currentLevel = ", currentLevel, "steps = ", i)
                 clearInterval(inter);
             }
         }, 500);
@@ -399,7 +409,8 @@ function simonPlay(cheat = false, level = 0) {
 function cheat(level) {
     if (level) {
         simonPlay(true, level);
-    } else {
+    }
+    else {
         simonPlay(true);
     }
 }
