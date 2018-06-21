@@ -3,6 +3,7 @@ font-family: 'Zilla Slab Highlight', cursive;
 font-family: 'Ubuntu Mono', monospace; */
 
 @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Zilla+Slab+Highlight:400,700');
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 @import "colors";
 @import "variables";
 @import "mixins";
@@ -23,7 +24,7 @@ header {
 }
 
 .simon {
-    width: 970px;
+    width: pix2Rem(1070);
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
@@ -134,4 +135,8 @@ header {
     @include btn {
         width: pix2Rem(150);
     }
+}
+
+.on {
+    background-color: map-get($color, red);
 }

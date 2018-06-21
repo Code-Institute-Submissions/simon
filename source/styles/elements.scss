@@ -11,5 +11,8 @@
 // console display
 .display {
     // width, height, bgColor, fontColor, fontWeight, fontSize, borderRadius
-    @include scoreDisplay(250, 200, black, yellow, 700, 190, 10%)
+    @include scoreDisplay(350, 180, black, yellow, 700, 110, 5%) {
+        font-family: 'Press Start 2P', cursive;
+        line-height: pix2Rem(200);
+    }
 }

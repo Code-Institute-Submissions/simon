@@ -78,4 +78,5 @@
     white-space: nowrap;
     vertical-align: middle; // border: ;
     border-radius: $borderRadius;
+    @content
 }

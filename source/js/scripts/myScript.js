@@ -1,7 +1,4 @@
-// initialisations
-var userSelection = []; // to store user sequence
-var simonSelection = []; // to store computer generated sequence
-
+// sound theme object!
 var soundThemesObj = {
     android: [
         "source/sounds/android/wing1.wav",
@@ -28,11 +25,15 @@ var soundThemesObj = {
         "source/sounds/high_pitched/wing4.wav"
     ]
 }
-var soundTheme = "simon";
-var levelsNum = 20; // maximun number of levels. users reaching this level will win.
-var currentLevel = 0; // shows current level 
-var simonLevelData; // hold currentLevel simon selections if currentLevel = 3 then simonLevelData.length = 3
-var userProgress = 0; // what step in the sequence the user is on. eg  level 6 , 4 keys pressed right so far then userProgress = 4
+
+// initialisations
+var userSelection = [];     // to store user sequence
+var simonSelection = [];    // to store computer generated sequence
+var soundTheme = "simon";   // default sound theme
+var levelsNum = 20;         // maximun number of levels. users reaching this level will win.
+var currentLevel = 0;       // shows current level 
+var simonLevelData;         // hold currentLevel simon selections if currentLevel = 3 then simonLevelData.length = 3
+var userProgress = 0;       // what step in the sequence the user is on. eg  level 6 , 4 keys pressed right so far then userProgress = 4
 
 
 //1- start board sequence
@@ -57,6 +58,17 @@ $(document).ready(function() {
             if (simonSelection.length === 0) {
                 intialiseSimon();
             };
+
+
+            $("#strict").click(function() {
+                $(this).toggleClass("on");
+                if ($(this).hasClass("on")) {
+                    $(this).text("strict on");
+                }
+                else {
+                    $(this).text("strict off");
+                };
+            });
 
             startSimon();
             userPlay();
@@ -249,41 +261,9 @@ function userPlay() {
 
 }
 
-function checkSelection() {
-    // currentLevel;
-    /*
-    check user input
-    compare with simon input
-    if matched currentLevel++
-    run simonplay again
-    */
-    console.log("\n>> checkSelection(): userSelection:", userSelection)
-    var simonSelectionSliced = simonSelection.slice(0, userSelection.length);
-    setTimeout(function() {
-
-        // data/level check
-        if (simonSelectionSliced.length === userSelection.length) {
-            if (simonSelectionSliced.join() == userSelection.join()) {
-                currentLevel++;
-                simonPlay();
-            }
-            else {
-                console.log("fucked up!",
-                    "\nsimonSelectionSliced = ", simonSelectionSliced,
-                    "\nuserSelection = ", userSelection)
-            }
-
-        }
-    }, 1000)
-
-
-}
-
 
 // check user selection
 function checkData(input) {
-
-
 
     //  eg: 
     //      currentLevel   = 2  
@@ -303,14 +283,24 @@ function checkData(input) {
         userProgress++;
     }
     else {
-        console.log("\tWRONG KEY!", input, "expected = ", simonLevelData[userProgress])
-        // alert("wrong key pressed! console now reseting!")
-        resetSimon();
         pass = false;
-        setTimeout(function() {
-            startSimon();
-        }, 2000)
- 
+        if ($("#strict").hasClass("on")) {
+            // if strict is ON!
+            pushToConsole("Err");
+            setTimeout(function() {
+                resetSimon();
+                startSimon();
+            }, 2000);
+        }
+        else {
+            // if strict is OFF!
+            console.log("\tWRONG KEY!", input, "expected = ", simonLevelData[userProgress])
+            pushToConsole("XX");
+            userProgress=0
+            setTimeout(function() {
+                simonPlay();
+            }, 1000);
+        }
     };
 
 
@@ -323,12 +313,6 @@ function checkData(input) {
             simonPlay();
         }, 1000);
     }
-
-
-
-
-    // console.log("userProgress = ", userProgress, "userSelection = ", userSelection)
-
 }
 
 
@@ -407,6 +391,7 @@ function simonPlay(cheat = false, level = 0) {
 // a generic cheating function to be implemented for the user to cheat!
 // same as " simonPlay(true) or simonPlay(true, level) "
 function cheat(level) {
+    userSelection = simonLevelData;
     if (level) {
         simonPlay(true, level);
     }
