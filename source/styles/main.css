@@ -121,16 +121,16 @@ header {
   border-bottom-right-radius: 20%; }
 
 .green-hit {
-  background-color: #1d6600; }
+  background-color: #0e3300; }
 
 .red-hit {
-  background-color: #660000; }
+  background-color: #330000; }
 
 .yellow-hit {
-  background-color: #5f6600; }
+  background-color: #303300; }
 
 .blue-hit {
-  background-color: #000066; }
+  background-color: #000033; }
 
 /* buttons with special needs*/
 .reset {
