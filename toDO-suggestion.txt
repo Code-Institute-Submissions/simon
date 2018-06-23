@@ -21,4 +21,5 @@ to do/ask:
     trigger other gesture based features.
     - how do i get it to stop registering clicks after a sequence a pressed 
     incorrectly - show yoni the misbehaviour!
+    - do i need to use jasmine for testing?
     

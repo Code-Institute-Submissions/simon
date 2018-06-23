@@ -46,13 +46,14 @@ $(document).ready(function() {
         $(".sound").click(function() {
             toggleSoundThemes(debug = 1);
         });
-
-        if ($(this).hasClass("power-off")) {
+        
+        // do stuff ONLY if it's switched on
+        $(this).toggleClass("on");
+        if (!$(this).hasClass("on")) {
+            $(this).html(`OFF <i class="fas fa-toggle-off"></i>`);
             location.reload(); // need a function to power down with sound!
-            $(this).text("Turn on").addClass("power-on").removeClass("power-off");
-        }
-        else if ($(this).hasClass("power-on")) {
-            $(this).text("Turn off").addClass("power-off").removeClass("power-on");
+        } else {
+            $(this).html(`ON <i class="fas fa-toggle-on"></i>`);
 
             /* Initialise simon */
             if (simonSelection.length === 0) {
@@ -84,10 +85,10 @@ $(document).ready(function() {
             $("#strict").click(function() {
                 $(this).toggleClass("on");
                 if ($(this).hasClass("on")) {
-                    $(this).text("strict on");
+                    $(this).html(`strict <i class="fas fa-toggle-on"></i>`);
                 }
                 else {
-                    $(this).text("strict off");
+                    $(this).html(`strict <i class="fas fa-toggle-off"></i>`);
                 };
             });
 
