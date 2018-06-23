@@ -46,11 +46,12 @@ $(document).ready(function() {
         // do stuff ONLY if it's switched on
         $(this).toggleClass("on");
         if (!$(this).hasClass("on")) {
-            $(this).html(`OFF <i class="fas fa-toggle-off"></i>`);
+            pushToConsole("Powering off...", 20);
+            $(this).html(`POWER ON <i class="fas fa-toggle-off"></i>`);
             location.reload(); // need a function to power down with sound!
         }
         else {
-            $(this).html(`ON <i class="fas fa-toggle-on"></i>`);
+            $(this).html(`POWER OFF <i class="fas fa-toggle-on"></i>`);
 
             /* Initialise simon */
             if (simonSelection.length === 0) {
@@ -60,6 +61,7 @@ $(document).ready(function() {
             $("#start-reset").click(function() {
 
                 if ($(this).hasClass("reset")) {
+                    // pushToConsole("reseting...", 30);
                     resetSimon();
                     resetDelay = 1500;
                 }
@@ -121,11 +123,20 @@ $(document).ready(function() {
 /* ------------------------ general functions ----------------------------------*/
 
 // push to console display
-function pushToConsole(val) {
+function pushToConsole(val, size) {
     if (typeof val === "number") {
+        $(".display").css("fontSize", 110)
         $(".display").text(IntegerPrecision(val));
     }
     else {
+        if (size) {
+            var DisplayFontSize = size;
+        }
+        else {
+            var DisplayFontSize = 110;
+        }
+        
+        $(".display").css("fontSize", DisplayFontSize)
         $(".display").text(val);
     };
 
@@ -357,7 +368,7 @@ function resetSimon() {
     currentLevel = 0; // reset back to 0
     userProgress = 0;
     intialiseSimon();
-    // pushToConsole(currentLevel) // push to console
+    pushToConsole("reseting...", 20); // push to console
     console.log("console reset!")
 }
 
@@ -379,7 +390,7 @@ function intialiseSimon() {
         simonSelection[i] = Math.ceil((Math.random() * 4));
     }
     // reset console to 00
-    pushToConsole(currentLevel);
+    pushToConsole("press 'PLAY' to start", 15);
     console.log("intialiseSimon():  simonSelection = ", simonSelection)
 }
 
