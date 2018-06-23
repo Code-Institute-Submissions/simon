@@ -23,14 +23,24 @@ var soundThemesObj = {
         "source/sounds/high_pitched/wing2.wav",
         "source/sounds/high_pitched/wing3.wav",
         "source/sounds/high_pitched/wing4.wav"
-    ]
+    ],
+    other: {
+        on: "source/sounds/other/on.mp3",
+        reset: "source/sounds/other/reset.mp3",
+        off: "source/sounds/other/off.mp3",
+        win: "source/sounds/other/win.mp3",
+        control: "source/sounds/other/alert.mp3",
+        lose: "source/sounds/other/lose.mp3",
+        strict: "source/sounds/other/alert.mp3"
+
+    }
 }
 
 // initialisations
 var userSelection = []; // to store user sequence
 var simonSelection = []; // to store computer generated sequence
 var soundTheme = "simon"; // default sound theme
-var levelsNum = 20; // maximun number of levels. users reaching this level will win.
+var levelsNum = 3; // maximun number of levels. users reaching this level will win.
 var currentLevel = 0; // shows current level 
 var simonLevelData; // hold currentLevel simon selections if currentLevel = 3 then simonLevelData.length = 3
 var userProgress = 0; // what step in the sequence the user is on. eg  level 6 , 4 keys pressed right so far then userProgress = 4
@@ -46,13 +56,17 @@ $(document).ready(function() {
         // do stuff ONLY if it's switched on
         $(this).toggleClass("on");
         if (!$(this).hasClass("on")) {
+            playTheme("off")
             pushToConsole("Powering off...", 20);
             $(this).html(`POWER ON <i class="fas fa-toggle-off"></i>`);
-            location.reload(); // need a function to power down with sound!
+            setTimeout(function() {
+                location.reload(); // need a function to power down with sound!
+            }, 1000)
         }
         else {
-            $(this).html(`POWER OFF <i class="fas fa-toggle-on"></i>`);
 
+            playTheme("on")
+            $(this).html(`POWER OFF <i class="fas fa-toggle-on"></i>`);
             /* Initialise simon */
             if (simonSelection.length === 0) {
                 intialiseSimon(); // arguably at this level it will always be empty
@@ -62,6 +76,7 @@ $(document).ready(function() {
 
                 if ($(this).hasClass("reset")) {
                     // pushToConsole("reseting...", 30);
+                    playTheme("reset");
                     resetSimon();
                     resetDelay = 1500;
                 }
@@ -102,9 +117,11 @@ $(document).ready(function() {
                 simonPlay(true);
             })
 
+            var tempDisplay, tempDisplayFontSize = getDisplayTxt();
             $("#strict").click(function() {
                 $(this).toggleClass("on");
                 if ($(this).hasClass("on")) {
+                    playTheme("strict");
                     $(this).html(`STRICT <i class="fas fa-toggle-on"></i>`);
                 }
                 else {
@@ -112,8 +129,11 @@ $(document).ready(function() {
                 };
             });
 
-            // player interaction funtion
             userPlay();
+            // player interaction funtion
+            if ($("#start-reset").hasClass("reset")) {
+                userPlay(); // add if statement to only be active when RESET is active
+            }
 
         }; // end of if power on!
     }); // end of power click function
@@ -135,7 +155,7 @@ function pushToConsole(val, size) {
         else {
             var DisplayFontSize = 110;
         }
-        
+
         $(".display").css("fontSize", DisplayFontSize)
         $(".display").text(val);
     };
@@ -147,8 +167,16 @@ function pushToConsole(val, size) {
     };
 }
 
+function getDisplayTxt() {
+    var val = $(".display").text();
+    var size = $(".display").css("fontSize");
+    size = parseInt(size.replace("px", ""));
+    return val, size;
+}
+
 function enableCheats(val) {
     // $(".console-hidden").fadeIn(800);
+
     if (val) {
         $(".console-hidden").show("puff", 200);
     }
@@ -159,13 +187,20 @@ function enableCheats(val) {
 
 /* ------------------------ sound functions ----------------------------------*/
 
-function playTune(wing, theme = soundTheme) {
+function playTune(wing, theme = soundTheme, consoleItem = "") {
     /*switch keypress tunes*/
     if (soundTheme !== "mute") {
         var tune = new Audio(soundThemesObj[theme][wing - 1]);
         tune.play();
     };
 }
+
+function playTheme(val) {
+    /*switch playing themes*/
+    var tune = new Audio(soundThemesObj["other"][val]);
+    tune.play();
+}
+
 
 
 function toggleSoundThemes(debug = 0) {
@@ -317,8 +352,22 @@ function checkData(input) {
     console.log("key pressed = ", input);
 
     var pass = true;
-    // check userSelection with simonLevelData on the fly!
+
+
+
+
+
+    console.log((currentLevel === levelsNum))
+
+    // if (currentLevel === levelsNum) {
+    //     pushToConsole("You win!", 20);
+    //     playTheme("win")
+    //     setTimeout(function() {
+    //         resetSimon();
+    //     }, 10000)
+    // }
     if (input === simonLevelData[userProgress]) {
+        // check userSelection with simonLevelData on the fly!
         console.log("\tcorrect user selection!", simonLevelData[userProgress])
         clickTracker = 0;
         userSelection[userProgress] = input;
@@ -328,16 +377,17 @@ function checkData(input) {
         pass = false;
         if ($("#strict").hasClass("on")) {
             // if strict is ON!
-            pushToConsole("Err");
+            playTheme("lose")
+            pushToConsole("You Lose!", 20);
             setTimeout(function() {
                 resetSimon();
                 startSimon();
-            }, 2000);
+            }, 4000);
         }
         else {
             // if strict is OFF!
             console.log("\tWRONG KEY!", input, "expected = ", simonLevelData[userProgress])
-            pushToConsole("XX");
+            pushToConsole("x_x", 70);
             userProgress = 0
             setTimeout(function() {
                 simonPlay();
@@ -349,14 +399,27 @@ function checkData(input) {
     console.log("clickTracker = ", clickTracker)
 
     if (simonLevelData.length === userSelection.length && pass) {
-        setTimeout(function() {
-            currentLevel++;
-            userProgress = 0;
-            simonPlay();
-        }, 1000);
+        currentLevel++;
+        userProgress = 0;
+        if (currentLevel === levelsNum) {
+            pushToConsole("You win!", 20);
+            playTheme("win")
+            setTimeout(function() {
+                resetSimon();
+                startSimon();
+            }, 20000)
+        }
+        else {
+            setTimeout(function() {
+                simonPlay();
+            }, 1000);
+        }
+
+
+
     }
 
-}
+} // end of checkData()
 
 
 /* ------------------------ simon functions ----------------------------------*/
@@ -389,7 +452,7 @@ function intialiseSimon() {
     for (var i = 0; i < levelsNum; i++) {
         simonSelection[i] = Math.ceil((Math.random() * 4));
     }
-    // reset console to 00
+    // start console
     pushToConsole("press 'PLAY' to start", 15);
     console.log("intialiseSimon():  simonSelection = ", simonSelection)
 }
