@@ -16,7 +16,8 @@ suggestion:
             - success
 
 to do/ask:
-
+    - add  logic for "WIN" - currentLevel == levelsNum
+    - ($arg...) for javascript
     - how responsive does it have to be? causse tapping on the phone would
     trigger other gesture based features.
     - how do i get it to stop registering clicks after a sequence a pressed 

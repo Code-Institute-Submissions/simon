@@ -35,6 +35,7 @@ var currentLevel = 0; // shows current level
 var simonLevelData; // hold currentLevel simon selections if currentLevel = 3 then simonLevelData.length = 3
 var userProgress = 0; // what step in the sequence the user is on. eg  level 6 , 4 keys pressed right so far then userProgress = 4
 var clickTracker = 0; // number of clicks
+var resetDelay; // time to wait before reseting 
 
 //1- start board sequence
 $(document).ready(function() {
@@ -42,23 +43,33 @@ $(document).ready(function() {
     // power on simon!
     $("#power").click(function() {
 
-        // toggle through sound themes!
-        $(".sound").click(function() {
-            toggleSoundThemes(debug = 1);
-        });
-        
         // do stuff ONLY if it's switched on
         $(this).toggleClass("on");
         if (!$(this).hasClass("on")) {
             $(this).html(`OFF <i class="fas fa-toggle-off"></i>`);
             location.reload(); // need a function to power down with sound!
-        } else {
+        }
+        else {
             $(this).html(`ON <i class="fas fa-toggle-on"></i>`);
 
             /* Initialise simon */
             if (simonSelection.length === 0) {
-                intialiseSimon();
+                intialiseSimon(); // arguably at this level it will always be empty
             };
+
+            $("#start-reset").click(function() {
+
+                if ($(this).hasClass("reset")) {
+                    resetSimon();
+                    resetDelay = 1500;
+                }
+                else {
+                    $(this).html(`RESET <i class="fas fa-eraser"></i>`);
+                    $(this).addClass("reset")
+                    resetDelay = 0;
+                }
+                setTimeout(startSimon, resetDelay)
+            })
 
             // enable hidden console! - DO NOT WISH TO TOGGLE!; pressing and holding ctrl would manifest weird behaviour
             $(document).keydown(function(event) {
@@ -66,18 +77,25 @@ $(document).ready(function() {
                     enableCheats(true);
                 };
             });
-            
+
             // disable hidden console! - DO NOT WISH TO TOGGLE!; pressing and holding ctrl would manifest weird behaviour
             $(document).keyup(function(event) {
                 if (event.which === 17) {
                     enableCheats(false);
                 };
             });
-            
+
+
+            // toggle through sound themes!
+            $(".sound").click(function() {
+                toggleSoundThemes(debug = 1);
+            });
+
+
             $("#hint").click(function() {
                 simonPlay();
             })
-                
+
             $("#skip").click(function() {
                 simonPlay(true);
             })
@@ -92,36 +110,12 @@ $(document).ready(function() {
                 };
             });
 
-
-
-            startSimon();
+            // player interaction funtion
             userPlay();
 
-            // while power is on
-            /*
-            $("#start-reset").click(function() {
-                if ($("#start-reset").hasClass("reset")) {
-                    resetSimon();
-                    $(this).text("start").addClass("start").removeClass("reset");
-                }
-                else if ($("#start-reset").hasClass("start")) {
-                    $(this).text("reset").addClass("reset").removeClass("start");
-                    startSimon();
-                }
-                else {
-                    console.log("Should never get here!")
-                }
-            
-
-                userPlay();
-
-            });
-            */
-        };
-
-
-    });
-})
+        }; // end of if power on!
+    }); // end of power click function
+}) // end of ready function
 
 
 /* ------------------------ general functions ----------------------------------*/
@@ -146,7 +140,8 @@ function enableCheats(val) {
     // $(".console-hidden").fadeIn(800);
     if (val) {
         $(".console-hidden").show("puff", 200);
-    } else {
+    }
+    else {
         $(".console-hidden").hide("drop", "slow");
     };
 }
