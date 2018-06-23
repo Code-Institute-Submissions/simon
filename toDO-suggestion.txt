@@ -16,6 +16,7 @@ suggestion:
             - success
 
 to do/ask:
+    - load all the sounds on startup and cache eveything
     - add  logic for "WIN" - currentLevel == levelsNum
     - ($arg...) for javascript
     - how responsive does it have to be? causse tapping on the phone would
@@ -23,4 +24,5 @@ to do/ask:
     - how do i get it to stop registering clicks after a sequence a pressed 
     incorrectly - show yoni the misbehaviour!
     - do i need to use jasmine for testing?
+    - do i still need to use google maps API or emailJS?
     

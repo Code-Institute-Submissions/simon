@@ -40,7 +40,7 @@ var soundThemesObj = {
 var userSelection = []; // to store user sequence
 var simonSelection = []; // to store computer generated sequence
 var soundTheme = "simon"; // default sound theme
-var levelsNum = 3; // maximun number of levels. users reaching this level will win.
+var levelsNum = 20; // maximun number of levels. users reaching this level will win.
 var currentLevel = 0; // shows current level 
 var simonLevelData; // hold currentLevel simon selections if currentLevel = 3 then simonLevelData.length = 3
 var userProgress = 0; // what step in the sequence the user is on. eg  level 6 , 4 keys pressed right so far then userProgress = 4
@@ -102,6 +102,11 @@ $(document).ready(function() {
                 };
             });
 
+            $(".tier").click(function() {
+                setLevelsNum();
+                $(this).text(`${levelsNum} LEVELS`)
+            })
+
 
             // toggle through sound themes!
             $(".sound").click(function() {
@@ -114,7 +119,10 @@ $(document).ready(function() {
             })
 
             $("#skip").click(function() {
-                simonPlay(true);
+                if (currentLevel < levelsNum-1) {
+                    simonPlay(true);
+                }
+
             })
 
             var tempDisplay, tempDisplayFontSize = getDisplayTxt();
@@ -184,6 +192,25 @@ function enableCheats(val) {
         $(".console-hidden").hide("drop", "slow");
     };
 }
+
+function setLevelsNum() {
+    /*set a new value for levelsNum*/
+    levelsNum = parseInt(prompt("Please select the number of maximum level as integer"));
+    console.log("levelsNum =", levelsNum, typeof levelsNum)
+
+    // error management
+    while (isNaN(levelsNum) || levelsNum < 5) {
+        console.log("levelsNum =", levelsNum)
+        if (isNaN(levelsNum)) {
+            levelsNum = parseInt(prompt("Please enter integers only"));
+        }
+        else if (levelsNum < 4) {
+            levelsNum = parseInt(prompt("Please enter an integer higher than 4"));
+        }
+    }
+
+}
+
 
 /* ------------------------ sound functions ----------------------------------*/
 
@@ -352,20 +379,6 @@ function checkData(input) {
     console.log("key pressed = ", input);
 
     var pass = true;
-
-
-
-
-
-    console.log((currentLevel === levelsNum))
-
-    // if (currentLevel === levelsNum) {
-    //     pushToConsole("You win!", 20);
-    //     playTheme("win")
-    //     setTimeout(function() {
-    //         resetSimon();
-    //     }, 10000)
-    // }
     if (input === simonLevelData[userProgress]) {
         // check userSelection with simonLevelData on the fly!
         console.log("\tcorrect user selection!", simonLevelData[userProgress])
@@ -405,8 +418,7 @@ function checkData(input) {
             pushToConsole("You win!", 20);
             playTheme("win")
             setTimeout(function() {
-                resetSimon();
-                startSimon();
+                location.reload(); // need a function to power down with sound!
             }, 20000)
         }
         else {
@@ -414,9 +426,6 @@ function checkData(input) {
                 simonPlay();
             }, 1000);
         }
-
-
-
     }
 
 } // end of checkData()
