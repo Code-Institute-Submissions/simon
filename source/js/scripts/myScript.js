@@ -144,9 +144,9 @@ function pushToConsole(val) {
 function enableCheats(val) {
     // $(".console-hidden").fadeIn(800);
     if (val) {
-        $(".console-hidden").fadeIn("slow");
+        $(".console-hidden").show("puff", 200);
     } else {
-        $(".console-hidden").fadeOut("slow");
+        $(".console-hidden").hide("drop", "slow");
     };
 }
 
