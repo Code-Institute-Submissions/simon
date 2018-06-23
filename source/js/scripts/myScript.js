@@ -85,10 +85,10 @@ $(document).ready(function() {
             $("#strict").click(function() {
                 $(this).toggleClass("on");
                 if ($(this).hasClass("on")) {
-                    $(this).html(`strict <i class="fas fa-toggle-on"></i>`);
+                    $(this).html(`STRICT <i class="fas fa-toggle-on"></i>`);
                 }
                 else {
-                    $(this).html(`strict <i class="fas fa-toggle-off"></i>`);
+                    $(this).html(`STRICT <i class="fas fa-toggle-off"></i>`);
                 };
             });
 
@@ -172,23 +172,23 @@ function toggleSoundThemes(debug = 0) {
 
     if (soundTheme === "simon") {
         soundTheme = "river_raid";
-        button.html(`${soundTheme.replace("_", " ")} <i class="fas fa-volume-up"></i>`);
+        button.html(`${soundTheme.replace("_", " ").toUpperCase()} <i class="fas fa-volume-up"></i>`);
     }
     else if (soundTheme === "river_raid") {
         soundTheme = "android";
-        button.html(`${soundTheme} <i class="fas fa-volume-up"></i>`);
+        button.html(`${soundTheme.toUpperCase()} <i class="fas fa-volume-up"></i>`);
     }
     else if (soundTheme === "android") {
         soundTheme = "high_pitched";
-        button.html(`${soundTheme.replace("_", " ")} <i class="fas fa-volume-up"></i>`);
+        button.html(`${soundTheme.replace("_", " ").toUpperCase()} <i class="fas fa-volume-up"></i>`);
     }
     else if (soundTheme === "high_pitched") {
         soundTheme = "mute";
-        button.html(`muted <i class="fas fa-volume-off"></i>`);
+        button.html(`MUTED <i class="fas fa-volume-off"></i>`);
     }
     else {
         soundTheme = "simon";
-        button.html(`${soundTheme} <i class="fas fa-volume-up"></i>`);
+        button.html(`${soundTheme.toUpperCase()} <i class="fas fa-volume-up"></i>`);
     }
 
     if (debug > 0) { console.log("\tsoundTheme = ", soundTheme) }
