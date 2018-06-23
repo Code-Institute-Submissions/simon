@@ -27,14 +27,14 @@ var soundThemesObj = {
 }
 
 // initialisations
-var userSelection = [];     // to store user sequence
-var simonSelection = [];    // to store computer generated sequence
-var soundTheme = "simon";   // default sound theme
-var levelsNum = 20;         // maximun number of levels. users reaching this level will win.
-var currentLevel = 0;       // shows current level 
-var simonLevelData;         // hold currentLevel simon selections if currentLevel = 3 then simonLevelData.length = 3
-var userProgress = 0;       // what step in the sequence the user is on. eg  level 6 , 4 keys pressed right so far then userProgress = 4
-
+var userSelection = []; // to store user sequence
+var simonSelection = []; // to store computer generated sequence
+var soundTheme = "simon"; // default sound theme
+var levelsNum = 20; // maximun number of levels. users reaching this level will win.
+var currentLevel = 0; // shows current level 
+var simonLevelData; // hold currentLevel simon selections if currentLevel = 3 then simonLevelData.length = 3
+var userProgress = 0; // what step in the sequence the user is on. eg  level 6 , 4 keys pressed right so far then userProgress = 4
+var clickTracker = 0; // number of clicks
 
 //1- start board sequence
 $(document).ready(function() {
@@ -59,6 +59,27 @@ $(document).ready(function() {
                 intialiseSimon();
             };
 
+            // enable hidden console! - DO NOT WISH TO TOGGLE!; pressing and holding ctrl would manifest weird behaviour
+            $(document).keydown(function(event) {
+                if (event.which === 17) {
+                    enableCheats(true);
+                };
+            });
+            
+            // disable hidden console! - DO NOT WISH TO TOGGLE!; pressing and holding ctrl would manifest weird behaviour
+            $(document).keyup(function(event) {
+                if (event.which === 17) {
+                    enableCheats(false);
+                };
+            });
+            
+            $("#hint").click(function() {
+                simonPlay();
+            })
+                
+            $("#skip").click(function() {
+                simonPlay(true);
+            })
 
             $("#strict").click(function() {
                 $(this).toggleClass("on");
@@ -69,6 +90,8 @@ $(document).ready(function() {
                     $(this).text("strict off");
                 };
             });
+
+
 
             startSimon();
             userPlay();
@@ -115,6 +138,15 @@ function pushToConsole(val) {
         /* if number is less than 10, add "0" behind it to show number as two digits
          */
         return (number < 10 ? '0' : '') + number;
+    };
+}
+
+function enableCheats(val) {
+    // $(".console-hidden").fadeIn(800);
+    if (val) {
+        $(".console-hidden").fadeIn("slow");
+    } else {
+        $(".console-hidden").fadeOut("slow");
     };
 }
 
@@ -238,26 +270,28 @@ function simulateClick_Beta(input) {
 function userPlay() {
 
     $("#1").click(function() {
-        simulateClick(1);
-        checkData(1);
+        processClick(1);
     })
 
     $("#2").click(function() {
-        simulateClick(2);
-        checkData(2);
+        processClick(2);
     })
 
 
     $("#3").click(function() {
-        simulateClick(3);
-        checkData(3);
+        processClick(3);
     })
 
 
     $("#4").click(function() {
-        simulateClick(4);
-        checkData(4);
+        processClick(4);
     })
+
+    function processClick(id) {
+        clickTracker++;
+        simulateClick(id);
+        checkData(id);
+    };
 
 }
 
@@ -279,6 +313,7 @@ function checkData(input) {
     // check userSelection with simonLevelData on the fly!
     if (input === simonLevelData[userProgress]) {
         console.log("\tcorrect user selection!", simonLevelData[userProgress])
+        clickTracker = 0;
         userSelection[userProgress] = input;
         userProgress++;
     }
@@ -296,15 +331,15 @@ function checkData(input) {
             // if strict is OFF!
             console.log("\tWRONG KEY!", input, "expected = ", simonLevelData[userProgress])
             pushToConsole("XX");
-            userProgress=0
+            userProgress = 0
             setTimeout(function() {
                 simonPlay();
             }, 1000);
         }
     };
 
-
     console.log("len simon = ", simonLevelData.length, "len user = ", userSelection.length)
+    console.log("clickTracker = ", clickTracker)
 
     if (simonLevelData.length === userSelection.length && pass) {
         setTimeout(function() {
@@ -313,6 +348,7 @@ function checkData(input) {
             simonPlay();
         }, 1000);
     }
+
 }
 
 

@@ -64,6 +64,10 @@ header {
         .console-secondar {
             margin-bottom: pix2Rem($consoleItemsMargin);
         }
+        .console-hidden {
+            margin-top: pix2Rem($consoleItemsMargin);
+            display: none;
+        }
     }
 }
 

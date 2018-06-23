@@ -86,6 +86,9 @@ header {
       margin-bottom: 0.25rem; }
     .simon .console .console-secondar {
       margin-bottom: 0.25rem; }
+    .simon .console .console-hidden {
+      margin-top: 0.25rem;
+      display: none; }
 
 .green {
   border: solid black;
