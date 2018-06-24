@@ -1,17 +1,25 @@
 
-suggestion:
+
+to do:
+    - dont run simonPlay() function immediately after the player gets it wrong. force them to use hint
+    - when the game is WON or LOST, leave simon idle and force player to click "PLAY".
+    - move soundThemesObj??
+    - load all the sounds on startup and cache eveything - loading animation
+    - add  logic for "WIN" - currentLevel == levelsNum - DONE!
+    - hover for the buttons!
+    - maybe tooltips?
+    - how to let the user know about the CTRL key
+    - apply animation on the PLAY button when it doesnt have class "reset".
     
 
-to do/ask:
-    - load all the sounds on startup and cache eveything - loading animation 
-    - add  logic for "WIN" - currentLevel == levelsNum
-    - ($arg...) for javascript
-    - how responsive does it have to be? causse tapping on the phone would
-    trigger other gesture based features.
+to ask:
+    - load and cache all the sounds on startup - loading animation 
     - how do i get it to stop registering clicks after a sequence a pressed 
-    incorrectly - show yoni the misbehaviour!
-        - when simon playing clicks still registering
-        - user extra selections can mes up the next simon sequence
+        incorrectly - show yoni the misbehaviour!
+            - when simon playing clicks still registering
+            - user extra selections can mes up the next simon sequence
+    - how responsive does it have to be? causse tapping on the phone would
+      trigger other gesture based features.
     - do i need to use jasmine for testing?
-    - do i still need to use google maps API or emailJS?
-    
+    - do i still need to use google maps API or emailJS?   
+    - ($arg...) for javascript

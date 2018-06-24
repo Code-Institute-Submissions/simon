@@ -32,11 +32,10 @@ var soundThemesObj = {
         control: "source/sounds/other/alert.mp3",
         lose: "source/sounds/other/lose.mp3",
         strict: "source/sounds/other/alert.mp3"
-
     }
 }
 
-// initialisations
+/* ========================= initialisations ============================ */
 var userSelection = []; // to store user sequence
 var simonSelection = []; // to store computer generated sequence
 var soundTheme = "simon"; // default sound theme
@@ -45,111 +44,41 @@ var currentLevel = 0; // shows current level
 var simonLevelData; // hold currentLevel simon selections if currentLevel = 3 then simonLevelData.length = 3
 var userProgress = 0; // what step in the sequence the user is on. eg  level 6 , 4 keys pressed right so far then userProgress = 4
 var clickTracker = 0; // number of clicks
-var resetDelay; // time to wait before reseting 
 
-//1- start board sequence
+/* ================================ start ================================ */
+// load page first
 $(document).ready(function() {
 
     // power on simon!
     $("#power").click(function() {
 
-        // do stuff ONLY if it's switched on
+        // toggle simon on/off
         $(this).toggleClass("on");
+
+        // do stuff ONLY if it's switched on
         if (!$(this).hasClass("on")) {
-            playTheme("off")
-            pushToConsole("Powering off...", 20);
-            $(this).html(`POWER ON <i class="fas fa-toggle-off"></i>`);
-            setTimeout(function() {
-                location.reload(); // need a function to power down with sound!
-            }, 1000)
+            powerOffSimon(); // power off simon
         }
         else {
+            powerOnSimon(); // power on simon
 
-            playTheme("on")
-            $(this).html(`POWER OFF <i class="fas fa-toggle-on"></i>`);
-            /* Initialise simon */
-            if (simonSelection.length === 0) {
-                intialiseSimon(); // arguably at this level it will always be empty
-            };
+            /*Hanlders introduced to reduce clutter*/
+            playResetHandler(); // handle PLAY/RESET button
+            hiddenConsoleHandler(); // handle hidden console via CTRL
+            setLevelHanlder(); // handle level button (id =tier)
+            soundThemeHandler(); // handle toggle sound-theme button
+            strictHandler(); // handle strict button functionality
 
-            $("#start-reset").click(function() {
+            handleUserPlay(); // handle user clicks - make sound, highlight etc....
 
-                if ($(this).hasClass("reset")) {
-                    // pushToConsole("reseting...", 30);
-                    playTheme("reset");
-                    resetSimon();
-                    resetDelay = 1500;
-                }
-                else {
-                    $(this).html(`RESET <i class="fas fa-eraser"></i>`);
-                    $(this).addClass("reset")
-                    resetDelay = 0;
-                }
-                setTimeout(startSimon, resetDelay)
-            })
-
-            // enable hidden console! - DO NOT WISH TO TOGGLE!; pressing and holding ctrl would manifest weird behaviour
-            $(document).keydown(function(event) {
-                if (event.which === 17) {
-                    enableCheats(true);
-                };
-            });
-
-            // disable hidden console! - DO NOT WISH TO TOGGLE!; pressing and holding ctrl would manifest weird behaviour
-            $(document).keyup(function(event) {
-                if (event.which === 17) {
-                    enableCheats(false);
-                };
-            });
-
-            $(".tier").click(function() {
-                setLevelsNum();
-                $(this).text(`${levelsNum} LEVELS`)
-            })
-
-
-            // toggle through sound themes!
-            $(".sound").click(function() {
-                toggleSoundThemes(debug = 1);
-            });
-
-
-            $("#hint").click(function() {
-                simonPlay();
-            })
-
-            $("#skip").click(function() {
-                if (currentLevel < levelsNum-1) {
-                    simonPlay(true);
-                }
-
-            })
-
-            var tempDisplay, tempDisplayFontSize = getDisplayTxt();
-            $("#strict").click(function() {
-                $(this).toggleClass("on");
-                if ($(this).hasClass("on")) {
-                    playTheme("strict");
-                    $(this).html(`STRICT <i class="fas fa-toggle-on"></i>`);
-                }
-                else {
-                    $(this).html(`STRICT <i class="fas fa-toggle-off"></i>`);
-                };
-            });
-
-            userPlay();
-            // player interaction funtion
-            if ($("#start-reset").hasClass("reset")) {
-                userPlay(); // add if statement to only be active when RESET is active
-            }
 
         }; // end of if power on!
     }); // end of power click function
 }) // end of ready function
+/* ================================ end ================================ */
 
-
-/* ------------------------ general functions ----------------------------------*/
-
+/* ################################   ALL FUNCTIONS   ################################ */
+/* ================================ general functions ================================ */
 // push to console display
 function pushToConsole(val, size) {
     if (typeof val === "number") {
@@ -212,9 +141,7 @@ function setLevelsNum() {
 
 }
 
-
-/* ------------------------ sound functions ----------------------------------*/
-
+/* ================================ sound functions ================================ */
 function playTune(wing, theme = soundTheme, consoleItem = "") {
     /*switch keypress tunes*/
     if (soundTheme !== "mute") {
@@ -229,10 +156,7 @@ function playTheme(val) {
     tune.play();
 }
 
-
-
 function toggleSoundThemes(debug = 0) {
-
     /*Change sound themes*/
 
     if (debug > 0) { console.log("\n>> toggleSoundThemes()") }
@@ -261,11 +185,10 @@ function toggleSoundThemes(debug = 0) {
     }
 
     if (debug > 0) { console.log("\tsoundTheme = ", soundTheme) }
-}
+} // end of toggleSoundThemes()
 
 
-/* ------------------------ core functions ----------------------------------*/
-
+/* ================================ click simulation functions ================================ */
 function wingIdtoClass(i) {
 
     if (i == 1) {
@@ -319,52 +242,34 @@ function simulateClick(input) {
     }, 250);
 }
 
-function simulateClick_Beta(input) {
-    var counter = 0;
-    var x = setInterval(function() {
-        counter++;
-        console.log(counter)
-        pressKey(input);
-        playTune(input);
-        setTimeout(releaseKey(input), 1000);
-        if (counter > 5) {
-            clearInterval(x);
-        }
-    }, 800)
-}
-
-
-/* ------------------------ user functions ----------------------------------*/
-
-
-function userPlay() {
-
+/* ================================ user functions ================================ */
+function handleUserPlay() {
+    /*handle the user's clicks*/
+    
     $("#1").click(function() {
-        processClick(1);
-    })
+        if ($("#start-reset").hasClass("reset")) {processClick(1);};
+    });
 
     $("#2").click(function() {
-        processClick(2);
-    })
+        if ($("#start-reset").hasClass("reset")) {processClick(2);};
+    });
 
 
     $("#3").click(function() {
-        processClick(3);
-    })
-
+        if ($("#start-reset").hasClass("reset")) {processClick(3);};
+    });
 
     $("#4").click(function() {
-        processClick(4);
-    })
+        if ($("#start-reset").hasClass("reset")) {processClick(4);};
+    });
 
+    // nested funtion to avoid repetition
     function processClick(id) {
         clickTracker++;
         simulateClick(id);
         checkData(id);
     };
-
 }
-
 
 // check user selection
 function checkData(input) {
@@ -432,8 +337,7 @@ function checkData(input) {
 } // end of checkData()
 
 
-/* ------------------------ simon functions ----------------------------------*/
-
+/* ================================ simon functions ================================ */
 function resetSimon() {
     /*HARD reset*/
     userSelection = []; // reset all selections currently held
@@ -453,6 +357,25 @@ function startSimon() {
     pushToConsole(currentLevel);
 }
 
+// power off simon
+function powerOffSimon() {
+    playTheme("off")
+    pushToConsole("Powering off...", 20);
+    $("#power").html(`POWER ON <i class="fas fa-toggle-off"></i>`);
+    setTimeout(function() {
+        location.reload(); // need a function to power down with sound!
+    }, 2000)
+}
+
+// power on simon
+function powerOnSimon() {
+    playTheme("on")
+    $("#power").html(`POWER OFF <i class="fas fa-toggle-on"></i>`);
+    /* Initialise simon */
+    if (simonSelection.length === 0) {
+        intialiseSimon(); // arguably at this level it will always be empty
+    };
+}
 
 function intialiseSimon() {
     /*
@@ -504,6 +427,8 @@ function simonPlay(cheat = false, level = 0) {
     };
 }
 
+
+/* ============================== Handlers and other functions ============================== */
 // a generic cheating function to be implemented for the user to cheat!
 // same as " simonPlay(true) or simonPlay(true, level) "
 function cheat(level) {
@@ -515,3 +440,83 @@ function cheat(level) {
         simonPlay(true);
     }
 }
+
+// press PLAY to start then RESET to reset
+function playResetHandler() {
+    $("#start-reset").click(function() {
+        var resetDelay;
+        if ($(this).hasClass("reset")) {
+            playTheme("reset");
+            resetSimon();
+            resetDelay = 1500;
+        }
+        else {
+            $(this).html(`RESET <i class="fas fa-eraser"></i>`);
+            $(this).addClass("reset")
+            resetDelay = 0;
+        }
+        setTimeout(startSimon, resetDelay);
+    });
+}
+
+
+function hiddenConsoleHandler() {
+    // enable hidden console! - DO NOT WISH TO TOGGLE!; pressing and holding ctrl would manifest weird behaviour
+    $(document).keydown(function(event) {
+        if (event.which === 17) {
+            enableCheats(true);
+        };
+    });
+
+    // disable hidden console! - DO NOT WISH TO TOGGLE!; pressing and holding ctrl would manifest weird behaviour
+    $(document).keyup(function(event) {
+        if (event.which === 17) {
+            enableCheats(false);
+        };
+    });
+
+    $("#hint").click(function() {
+        if ($("#start-reset").hasClass("reset")) {
+            simonPlay();
+        }
+    })
+
+    $("#skip").click(function() {
+        if (currentLevel < levelsNum - 1 && $("#start-reset").hasClass("reset")) {
+            simonPlay(true);
+        }
+    })
+}
+
+// handle strict button 
+function strictHandler() {
+    $("#strict").click(function() {
+        $(this).toggleClass("on");
+        if ($(this).hasClass("on")) {
+            playTheme("strict");
+            $(this).html(`STRICT <i class="fas fa-toggle-on"></i>`);
+        }
+        else {
+            $(this).html(`STRICT <i class="fas fa-toggle-off"></i>`);
+        };
+    });
+}
+
+// handle toggle sound theme button
+function soundThemeHandler() {
+    // toggle through sound themes!
+    $(".sound").click(function() {
+        toggleSoundThemes(debug = 1);
+    });
+}
+
+
+// handle level button (id =tier)
+function setLevelHanlder() {
+    $(".tier").click(function() {
+        setLevelsNum();
+        $(this).text(`${levelsNum} LEVELS`)
+    })
+
+}
+
