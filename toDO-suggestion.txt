@@ -1,11 +1,11 @@
 
 
 to do:
-    - dont run simonPlay() function immediately after the player gets it wrong. force them to use hint
-    - when the game is WON or LOST, leave simon idle and force player to click "PLAY".
-    - move soundThemesObj??
+
+    - move soundThemesObj?? -DONE!
     - load all the sounds on startup and cache eveything - loading animation
-    - add  logic for "WIN" - currentLevel == levelsNum - DONE!
+    - when the game is WON or LOST, leave simon idle and force player to click "PLAY". - DONE
+    - add  logic for "WIN" - currentLevel == levelsNum -- DONE!
     - hover for the buttons!
     - maybe tooltips?
     - how to let the user know about the CTRL key

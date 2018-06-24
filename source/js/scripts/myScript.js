@@ -1,39 +1,3 @@
-// sound theme object!
-var soundThemesObj = {
-    android: [
-        "source/sounds/android/wing1.wav",
-        "source/sounds/android/wing2.wav",
-        "source/sounds/android/wing3.wav",
-        "source/sounds/android/wing4.wav"
-    ],
-    simon: [
-        "source/sounds/simon/wing1.mp3",
-        "source/sounds/simon/wing2.mp3",
-        "source/sounds/simon/wing3.mp3",
-        "source/sounds/simon/wing4.mp3"
-    ],
-    river_raid: [
-        "source/sounds/river_raid/wing1.wav",
-        "source/sounds/river_raid/wing2.wav",
-        "source/sounds/river_raid/wing3.wav",
-        "source/sounds/river_raid/wing4.wav"
-    ],
-    high_pitched: [
-        "source/sounds/high_pitched/wing1.wav",
-        "source/sounds/high_pitched/wing2.wav",
-        "source/sounds/high_pitched/wing3.wav",
-        "source/sounds/high_pitched/wing4.wav"
-    ],
-    other: {
-        on: "source/sounds/other/on.mp3",
-        reset: "source/sounds/other/reset.mp3",
-        off: "source/sounds/other/off.mp3",
-        win: "source/sounds/other/win.mp3",
-        control: "source/sounds/other/alert.mp3",
-        lose: "source/sounds/other/lose.mp3",
-        strict: "source/sounds/other/alert.mp3"
-    }
-}
 
 /* ========================= initialisations ============================ */
 var userSelection = []; // to store user sequence
@@ -142,6 +106,44 @@ function setLevelsNum() {
 }
 
 /* ================================ sound functions ================================ */
+
+// sound theme object!
+var soundThemesObj = {
+    android: [
+        "source/sounds/android/wing1.wav",
+        "source/sounds/android/wing2.wav",
+        "source/sounds/android/wing3.wav",
+        "source/sounds/android/wing4.wav"
+    ],
+    simon: [
+        "source/sounds/simon/wing1.mp3",
+        "source/sounds/simon/wing2.mp3",
+        "source/sounds/simon/wing3.mp3",
+        "source/sounds/simon/wing4.mp3"
+    ],
+    river_raid: [
+        "source/sounds/river_raid/wing1.wav",
+        "source/sounds/river_raid/wing2.wav",
+        "source/sounds/river_raid/wing3.wav",
+        "source/sounds/river_raid/wing4.wav"
+    ],
+    high_pitched: [
+        "source/sounds/high_pitched/wing1.wav",
+        "source/sounds/high_pitched/wing2.wav",
+        "source/sounds/high_pitched/wing3.wav",
+        "source/sounds/high_pitched/wing4.wav"
+    ],
+    other: {
+        on: "source/sounds/other/on.mp3",
+        reset: "source/sounds/other/reset.mp3",
+        off: "source/sounds/other/off.mp3",
+        win: "source/sounds/other/win.mp3",
+        control: "source/sounds/other/alert.mp3",
+        lose: "source/sounds/other/lose.mp3",
+        strict: "source/sounds/other/alert.mp3"
+    }
+}
+
 function playTune(wing, theme = soundTheme, consoleItem = "") {
     /*switch keypress tunes*/
     if (soundTheme !== "mute") {
@@ -299,8 +301,7 @@ function checkData(input) {
             playTheme("lose")
             pushToConsole("You Lose!", 20);
             setTimeout(function() {
-                resetSimon();
-                startSimon();
+                restorePlay();
             }, 4000);
         }
         else {
@@ -324,8 +325,8 @@ function checkData(input) {
             pushToConsole("You win!", 20);
             playTheme("win")
             setTimeout(function() {
-                location.reload(); // need a function to power down with sound!
-            }, 20000)
+                restorePlay();
+            }, 15000)
         }
         else {
             setTimeout(function() {
@@ -459,6 +460,13 @@ function playResetHandler() {
     });
 }
 
+// revert back to the PLAY button from reset
+function restorePlay() {
+    resetSimon();
+    pushToConsole("press 'PLAY' to start", 15);
+    $("#start-reset").html(`PLAY <i class="fas fa-play"></i>`);
+    $("#start-reset").removeClass("reset")
+}
 
 function hiddenConsoleHandler() {
     // enable hidden console! - DO NOT WISH TO TOGGLE!; pressing and holding ctrl would manifest weird behaviour
