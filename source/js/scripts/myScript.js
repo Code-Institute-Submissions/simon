@@ -175,6 +175,7 @@ function pushToConsole(val, size) {
     };
 }
 
+// get what's displaying on the console and its size
 function getDisplayTxt() {
     var val = $(".display").text();
     var size = $(".display").css("fontSize");
@@ -183,7 +184,7 @@ function getDisplayTxt() {
 }
 
 function enableCheats(val) {
-    // $(".console-hidden").fadeIn(800);
+    // used with keyup/keydown methods to brieflt show the hidden console - bound to "CTRL" key 
 
     if (val) {
         $(".console-hidden").show("puff", 200);
@@ -195,7 +196,7 @@ function enableCheats(val) {
 
 function setLevelsNum() {
     /*set a new value for levelsNum*/
-    levelsNum = parseInt(prompt("Please select the number of maximum level as integer"));
+    levelsNum = parseInt(prompt("Please enter the maximum number of levels as an integer.\nNote: Number has be to greater than 4."));
     console.log("levelsNum =", levelsNum, typeof levelsNum)
 
     // error management
@@ -204,7 +205,7 @@ function setLevelsNum() {
         if (isNaN(levelsNum)) {
             levelsNum = parseInt(prompt("Please enter integers only"));
         }
-        else if (levelsNum < 4) {
+        else if (levelsNum < 5) {
             levelsNum = parseInt(prompt("Please enter an integer higher than 4"));
         }
     }

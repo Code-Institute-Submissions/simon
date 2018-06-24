@@ -1,28 +1,17 @@
 
 suggestion:
     
-    - fully load and cache the website first - no lag for sounds!
-    - add a hint button or find a way for the user to be able to cheat (maybe 
-    (using the cheat()? ) -DONE!
-    - add another "display" to the console to keep track of the steps left
-        - eg, "02" to steps left, press another key "01" left 
-    - display console:
-        - new font - something digital?
-        - animation for when it comes on
-        - sound for:
-            - turn on
-            - turn off
-            - error
-            - success
 
 to do/ask:
-    - load all the sounds on startup and cache eveything
+    - load all the sounds on startup and cache eveything - loading animation 
     - add  logic for "WIN" - currentLevel == levelsNum
     - ($arg...) for javascript
     - how responsive does it have to be? causse tapping on the phone would
     trigger other gesture based features.
     - how do i get it to stop registering clicks after a sequence a pressed 
     incorrectly - show yoni the misbehaviour!
+        - when simon playing clicks still registering
+        - user extra selections can mes up the next simon sequence
     - do i need to use jasmine for testing?
     - do i still need to use google maps API or emailJS?
     
