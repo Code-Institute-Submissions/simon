@@ -62,6 +62,13 @@
     border-right-width: pix2Rem($wRight);
     border-bottom-width: pix2Rem($wBottom);
     border-left-width: pix2Rem($wLeft);
+    font-size: pix2Rem($wingFontSize);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     @content
 }
 

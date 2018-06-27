@@ -20,9 +20,12 @@ font-family: 'Ubuntu Mono', monospace; */
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   background-color: #ff6600; }
+  .btn:hover {
+    background-color: #000000;
+    color: #eeff00; }
 
 .display {
-  width: 21.875rem;
+  width: 22.5rem;
   height: 11.25rem;
   background-color: #000000;
   color: #eeff00;
@@ -97,6 +100,13 @@ header {
   border-right-width: 0.46875rem;
   border-bottom-width: 0.46875rem;
   border-left-width: 0.9375rem;
+  font-size: 12.5rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   border-top-left-radius: 20%; }
 
 .red {
@@ -106,6 +116,13 @@ header {
   border-right-width: 0.9375rem;
   border-bottom-width: 0.46875rem;
   border-left-width: 0.46875rem;
+  font-size: 12.5rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   border-top-right-radius: 20%; }
 
 .yellow {
@@ -115,6 +132,13 @@ header {
   border-right-width: 0.46875rem;
   border-bottom-width: 0.9375rem;
   border-left-width: 0.9375rem;
+  font-size: 12.5rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   border-bottom-left-radius: 20%; }
 
 .blue {
@@ -124,6 +148,13 @@ header {
   border-right-width: 0.9375rem;
   border-bottom-width: 0.9375rem;
   border-left-width: 0.46875rem;
+  font-size: 12.5rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   border-bottom-right-radius: 20%; }
 
 .green-hit {

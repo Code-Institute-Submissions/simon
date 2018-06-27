@@ -26,6 +26,7 @@ $(document).ready(function() {
             powerOnSimon(); // power on simon
 
             /*Hanlders introduced to reduce clutter*/
+            toggleTags(); // handle the tags
             playResetHandler(); // handle PLAY/RESET button
             hiddenConsoleHandler(); // handle hidden console via CTRL
             setLevelHanlder(); // handle level button (id =tier)
@@ -211,7 +212,7 @@ function checkData(input) {
             // if strict is ON!
             playTheme("lose")
             pushToConsole("You Lose!", 20);
-            setTimeout(restorePlay,4000);
+            setTimeout(restorePlay, 4000);
         }
         else {
 
@@ -220,7 +221,7 @@ function checkData(input) {
 
             pushToConsole("x_x", 70);
             userProgress = 0;
-            setTimeout(simonPlay,1200);
+            setTimeout(simonPlay, 1200);
         }
     };
 
@@ -235,10 +236,10 @@ function checkData(input) {
         if (currentLevel === levelsNum) {
             pushToConsole("You win!", 20);
             playTheme("win")
-            setTimeout(restorePlay,10000);
+            setTimeout(restorePlay, 10000);
         }
         else {
-            setTimeout(simonPlay,700);
+            setTimeout(simonPlay, 700);
         }
     }
 
@@ -319,18 +320,18 @@ function intialiseSimon() {
     for (var i = 0; i < levelsNum; i++) {
         simonSelection[i] = Math.ceil((Math.random() * 4));
     };
-    
+
     // start console
     pushToConsole("press 'PLAY' to start", 15);
-    
-    if (debug > 0) {console.log("\tsimonSelection = ", simonSelection) };
-    
+
+    if (debug > 0) { console.log("\tsimonSelection = ", simonSelection) };
+
 }
 
 
 // play simon selections
 function simonPlay(cheat = false, level = 0) {
-    
+
     /*
     cheat:  skip current level to the next level.    
     level:  if cheat=== true jump to this level.
@@ -338,7 +339,7 @@ function simonPlay(cheat = false, level = 0) {
 
     var debug = 0; // set to a number higher than zero to log debugs
     if (debug > 0) { console.log("\n>> simonPlay()") };
-    
+
     // if cheat enabled!
     if (cheat) {
         if (level == 0) {
@@ -360,7 +361,7 @@ function simonPlay(cheat = false, level = 0) {
         var inter = setInterval(function() {
             simulateClick(simonSelection[i]);
             i++;
-            
+
             if (i >= currentLevel) {
                 if (debug > 0) { console.log(`\tsetInterval() cleared at level "${currentLevel}" after "${i}" steps`) };
                 clearInterval(inter);
@@ -413,7 +414,7 @@ function restorePlay() {
 
 // handle enabling and disable of the hidden cheat console
 function hiddenConsoleHandler() {
-    
+
     // enable hidden console! - DO NOT USE TOGGLE!; pressing and holding ctrl would cause weird behaviour
     $(document).keydown(function(event) {
         if (event.which === 17) {
@@ -427,7 +428,7 @@ function hiddenConsoleHandler() {
             enableCheats(false);
         };
     });
-    
+
     $("#hint").click(function() {
         if ($("#start-reset").hasClass("reset")) {
             simonPlay();
@@ -472,4 +473,24 @@ function setLevelHanlder() {
         $(this).text(`${levelsNum} LEVELS`)
     })
 
+}
+
+
+// handle the tags
+function toggleTags() {
+    $("#tags").click(function() {
+        $(this).toggleClass("on");
+        if ($(this).hasClass("on")) {
+            $("#1").text("1")
+            $("#2").text("2")
+            $("#3").text("3")
+            $("#4").text("4")
+        }
+        else {
+            $("#1").text("")
+            $("#2").text("")
+            $("#3").text("")
+            $("#4").text("")
+        };
+    })
 }
