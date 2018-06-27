@@ -1,15 +1,14 @@
-
-/* ========================= initialisations ============================ */
+//  ========================= initialisations ============================ 
 var userSelection = []; // to store user sequence
 var simonSelection = []; // to store computer generated sequence
-var soundTheme = "simon"; // default sound theme
+const WING_ID_TO_CLASS_OBJ = {1: "green-hit", 2: "red-hit", 3: "yellow-hit", 4: "blue-hit"};
 var levelsNum = 20; // maximun number of levels. users reaching this level will win.
 var currentLevel = 0; // shows current level 
 var simonLevelData; // hold currentLevel simon selections if currentLevel = 3 then simonLevelData.length = 3
 var userProgress = 0; // what step in the sequence the user is on. eg  level 6 , 4 keys pressed right so far then userProgress = 4
 var clickTracker = 0; // number of clicks
 
-/* ================================ start ================================ */
+// ================================ start ================================ 
 // load page first
 $(document).ready(function() {
 
@@ -32,19 +31,19 @@ $(document).ready(function() {
             setLevelHanlder(); // handle level button (id =tier)
             soundThemeHandler(); // handle toggle sound-theme button
             strictHandler(); // handle strict button functionality
-
             handleUserPlay(); // handle user clicks - make sound, highlight etc....
 
+        }; 
+    }); 
+}) 
+//  ================================ end ================================ 
 
-        }; // end of if power on!
-    }); // end of power click function
-}) // end of ready function
-/* ================================ end ================================ */
 
-/* ################################   ALL FUNCTIONS   ################################ */
-/* ================================ general functions ================================ */
+//  ################################   ALL FUNCTIONS   ###############################
+//  ================================ general functions ================================
 // push to console display
 function pushToConsole(val, size) {
+    
     if (typeof val === "number") {
         $(".display").css("fontSize", 110)
         $(".display").text(IntegerPrecision(val));
@@ -60,24 +59,24 @@ function pushToConsole(val, size) {
         $(".display").css("fontSize", DisplayFontSize)
         $(".display").text(val);
     };
-
+    
+    // if number is less than 10, add "0" behind it to show number as two digits
     function IntegerPrecision(number) {
-        /* if number is less than 10, add "0" behind it to show number as two digits
-         */
         return (number < 10 ? '0' : '') + number;
     };
 }
 
 // get what's displaying on the console and its size
 function getDisplayTxt() {
+    
     var val = $(".display").text();
     var size = $(".display").css("fontSize");
     size = parseInt(size.replace("px", ""));
     return val, size;
 }
 
+// used with keyup/keydown methods to brieflt show the hidden console - bound to "CTRL" key 
 function enableCheats(val) {
-    // used with keyup/keydown methods to brieflt show the hidden console - bound to "CTRL" key 
 
     if (val) {
         $(".console-hidden").show("puff", 200);
@@ -87,8 +86,9 @@ function enableCheats(val) {
     };
 }
 
+// set a new value for levelsNum
 function setLevelsNum() {
-    /*set a new value for levelsNum*/
+    
     levelsNum = parseInt(prompt("Please enter the maximum number of levels as an integer.\nNote: Number has be to greater than 4."));
     console.log("levelsNum =", levelsNum, typeof levelsNum)
 
@@ -105,113 +105,7 @@ function setLevelsNum() {
 
 }
 
-/* ================================ sound functions ================================ */
-
-// sound theme object!
-var soundThemesObj = {
-    android: [
-        "source/sounds/android/wing1.wav",
-        "source/sounds/android/wing2.wav",
-        "source/sounds/android/wing3.wav",
-        "source/sounds/android/wing4.wav"
-    ],
-    simon: [
-        "source/sounds/simon/wing1.mp3",
-        "source/sounds/simon/wing2.mp3",
-        "source/sounds/simon/wing3.mp3",
-        "source/sounds/simon/wing4.mp3"
-    ],
-    river_raid: [
-        "source/sounds/river_raid/wing1.wav",
-        "source/sounds/river_raid/wing2.wav",
-        "source/sounds/river_raid/wing3.wav",
-        "source/sounds/river_raid/wing4.wav"
-    ],
-    high_pitched: [
-        "source/sounds/high_pitched/wing1.wav",
-        "source/sounds/high_pitched/wing2.wav",
-        "source/sounds/high_pitched/wing3.wav",
-        "source/sounds/high_pitched/wing4.wav"
-    ],
-    other: {
-        on: "source/sounds/other/on.mp3",
-        reset: "source/sounds/other/reset.mp3",
-        off: "source/sounds/other/off.mp3",
-        win: "source/sounds/other/win.mp3",
-        control: "source/sounds/other/alert.mp3",
-        lose: "source/sounds/other/lose.mp3",
-        strict: "source/sounds/other/alert.mp3"
-    }
-}
-
-function playTune(wing, theme = soundTheme, consoleItem = "") {
-    /*switch keypress tunes*/
-    if (soundTheme !== "mute") {
-        var tune = new Audio(soundThemesObj[theme][wing - 1]);
-        tune.play();
-    };
-}
-
-function playTheme(val) {
-    /*switch playing themes*/
-    var tune = new Audio(soundThemesObj["other"][val]);
-    tune.play();
-}
-
-function toggleSoundThemes(debug = 0) {
-    /*Change sound themes*/
-
-    if (debug > 0) { console.log("\n>> toggleSoundThemes()") }
-
-    var button = $(".sound");
-
-    if (soundTheme === "simon") {
-        soundTheme = "river_raid";
-        button.html(`${soundTheme.replace("_", " ").toUpperCase()} <i class="fas fa-volume-up"></i>`);
-    }
-    else if (soundTheme === "river_raid") {
-        soundTheme = "android";
-        button.html(`${soundTheme.toUpperCase()} <i class="fas fa-volume-up"></i>`);
-    }
-    else if (soundTheme === "android") {
-        soundTheme = "high_pitched";
-        button.html(`${soundTheme.replace("_", " ").toUpperCase()} <i class="fas fa-volume-up"></i>`);
-    }
-    else if (soundTheme === "high_pitched") {
-        soundTheme = "mute";
-        button.html(`MUTED <i class="fas fa-volume-off"></i>`);
-    }
-    else {
-        soundTheme = "simon";
-        button.html(`${soundTheme.toUpperCase()} <i class="fas fa-volume-up"></i>`);
-    }
-
-    if (debug > 0) { console.log("\tsoundTheme = ", soundTheme) }
-} // end of toggleSoundThemes()
-
-
 /* ================================ click simulation functions ================================ */
-function wingIdtoClass(i) {
-
-    if (i == 1) {
-        return "green-hit";
-    }
-    else if (i == 2) {
-        return "red-hit";
-    }
-    else if (i == 3) {
-        return "yellow-hit";
-    }
-    else if (i == 4) {
-        return "blue-hit";
-    }
-    else {
-        //should never get here!
-        console.log(i, "crap in the generated sequence!\n");
-        return "sequenceError";
-    }
-}
-
 
 function pressKey(input, debug = 0) {
 
@@ -220,8 +114,7 @@ function pressKey(input, debug = 0) {
     if (Number.isInteger(input)) {
 
         var wing = $(`#${input}`)
-        var wingClass = wingIdtoClass(input);
-        wing.addClass(wingClass);
+        wing.addClass( WING_ID_TO_CLASS_OBJ[input] );
         playTune(input) // play tune
 
         if (debug > 0) { console.log("\tinput is a single integer:", input, "wingClass =", wingClass) };
@@ -230,11 +123,8 @@ function pressKey(input, debug = 0) {
 
 
 function releaseKey(input) {
-    // console.log("\nreleaseWing(): i got called");
     var wing = $(`#${input}`)
-    var wingClass = wingIdtoClass(input);
-    // console.log("\twing = ", wing, "wingClass = ", wingClass)
-    wing.removeClass(wingClass);
+    wing.removeClass( WING_ID_TO_CLASS_OBJ[input] );
 }
 
 function simulateClick(input) {
