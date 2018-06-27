@@ -89,12 +89,17 @@ function enableCheats(val) {
 // set a new value for levelsNum
 function setLevelsNum() {
 
+    var debug = 0; // set to a number higher than zero to log debugs
+    if (debug > 0) { console.log("\n>> setLevelsNum()") }
+
     levelsNum = parseInt(prompt("Please enter the maximum number of levels as an integer.\nNote: Number has be to greater than 4."));
-    console.log("levelsNum =", levelsNum, typeof levelsNum)
+
+    if (debug > 0) { console.log(`\tsetLevelsNum = "${levelsNum}" and type of "${typeof levelsNum}"`) }
+
 
     // error management
     while (isNaN(levelsNum) || levelsNum < 5) {
-        console.log("levelsNum =", levelsNum)
+
         if (isNaN(levelsNum)) {
             levelsNum = parseInt(prompt("Please enter integers only"));
         }
@@ -108,8 +113,11 @@ function setLevelsNum() {
 /* ================================ click simulation functions ================================ */
 
 // simulate a click 
-function simulateClick(input, debug = 0) {
-    
+function simulateClick(input) {
+
+    var debug = 0; // set to a number higher than zero to log debugs
+    if (debug > 0) { console.log("\n>> simulateClick()") };
+
     pressKey(input);
     setTimeout(function() {
         releaseKey(input);
@@ -118,7 +126,7 @@ function simulateClick(input, debug = 0) {
     // nested function:  simulate pressing the key
     function pressKey(input) {
 
-        if (debug > 0) { console.log("\n>> pressKey()") }
+        if (debug > 0) { console.log("\t>> pressKey()") };
 
         if (Number.isInteger(input)) {
 
@@ -126,26 +134,27 @@ function simulateClick(input, debug = 0) {
             wing.addClass(WING_ID_TO_CLASS_OBJ[input]);
             playTune(input) // play tune
 
-            if (debug > 0) {console.log(`\tadded "${WING_ID_TO_CLASS_OBJ[input]}" class to wing id "${input}"`)};
+            if (debug > 0) { console.log(`\t\tadded "${WING_ID_TO_CLASS_OBJ[input]}" class to wing id "${input}"`) };
         };
     };
-    
+
     // nested function:  simulate releasing the key
     function releaseKey(input) {
-        
-        if (debug > 0) { console.log("\n>> releaseKey()") }
-        
+
+        if (debug > 0) { console.log("\t>> releaseKey()") }
+
         var wing = $(`#${input}`)
         wing.removeClass(WING_ID_TO_CLASS_OBJ[input]);
-        
-        if (debug > 0) {console.log(`\tremoved "${WING_ID_TO_CLASS_OBJ[input]}" class to wing id "${input}"`)};
+
+        if (debug > 0) { console.log(`\t\tremoved "${WING_ID_TO_CLASS_OBJ[input]}" class to wing id "${input}"`) };
     };
 
 }
 
 /* ================================ user functions ================================ */
+
+// handle clicks made by player/user
 function handleUserPlay() {
-    /*handle the user's clicks*/
 
     $("#1").click(function() {
         if ($("#start-reset").hasClass("reset")) { processClick(1); };
@@ -175,20 +184,22 @@ function handleUserPlay() {
 // check user selection
 function checkData(input) {
 
-    //  eg: 
-    //      currentLevel   = 2  
-    //      simonLevelData = [2, 2]
+    var debug = 0; // set to a number higher than zero to log debugs
 
-    console.log("\ncheckData():");
-    console.log("previousLevel = ", currentLevel);
-    console.log("userProgress = ", userProgress);
-    console.log("simonLevelData[userProgress] = ", simonLevelData[userProgress]);
-    console.log("key pressed = ", input);
+    if (debug > 1) {
+        console.log("\n>> checkData()");
+        console.log("\tpreviousLevel = ", currentLevel);
+        console.log("\tuserProgress = ", userProgress);
+        console.log("\tsimonLevelData[userProgress] = ", simonLevelData[userProgress]);
+        console.log("\tkey pressed = ", input);
+    };
 
     var pass = true;
     if (input === simonLevelData[userProgress]) {
+
         // check userSelection with simonLevelData on the fly!
-        console.log("\tcorrect user selection!", simonLevelData[userProgress])
+        if (debug > 0) { console.log("\tcorrect user selection!", simonLevelData[userProgress]) };
+
         clickTracker = 0;
         userSelection[userProgress] = input;
         userProgress++;
@@ -196,26 +207,27 @@ function checkData(input) {
     else {
         pass = false;
         if ($("#strict").hasClass("on")) {
+
             // if strict is ON!
             playTheme("lose")
             pushToConsole("You Lose!", 20);
-            setTimeout(function() {
-                restorePlay();
-            }, 4000);
+            setTimeout(restorePlay,4000);
         }
         else {
+
             // if strict is OFF!
-            console.log("\tWRONG KEY!", input, "expected = ", simonLevelData[userProgress])
+            if (debug > 0) { console.log("\tWRONG KEY!", input, "expected = ", simonLevelData[userProgress]) };
+
             pushToConsole("x_x", 70);
-            userProgress = 0
-            setTimeout(function() {
-                simonPlay();
-            }, 1000);
+            userProgress = 0;
+            setTimeout(simonPlay,1200);
         }
     };
 
-    console.log("len simon = ", simonLevelData.length, "len user = ", userSelection.length)
-    console.log("clickTracker = ", clickTracker)
+    if (debug > 3) {
+        console.log("\tlen simon = ", simonLevelData.length, "len user = ", userSelection.length);
+        console.log("\tclickTracker = ", clickTracker);
+    };
 
     if (simonLevelData.length === userSelection.length && pass) {
         currentLevel++;
@@ -223,14 +235,10 @@ function checkData(input) {
         if (currentLevel === levelsNum) {
             pushToConsole("You win!", 20);
             playTheme("win")
-            setTimeout(function() {
-                restorePlay();
-            }, 15000)
+            setTimeout(restorePlay,10000);
         }
         else {
-            setTimeout(function() {
-                simonPlay();
-            }, 1000);
+            setTimeout(simonPlay,700);
         }
     }
 
@@ -238,27 +246,43 @@ function checkData(input) {
 
 
 /* ================================ simon functions ================================ */
+
+// hard reset simon
 function resetSimon() {
-    /*HARD reset*/
+
+    var debug = 0; // set to a number higher than zero to log debugs
+    if (debug > 0) { console.log("\n>> resetSimon()") };
+
     userSelection = []; // reset all selections currently held
     simonSelection = []; // reset all selections currently held
-    currentLevel = 0; // reset back to 0
-    userProgress = 0;
+    currentLevel = 0; // reset 
+    userProgress = 0; // reset 
     intialiseSimon();
     pushToConsole("reseting...", 20); // push to console
-    console.log("console reset!")
+
+    if (debug > 0) { console.log("console reset!") };
 }
 
 
+// start playing sequence
 function startSimon() {
-    /*Initiate Game!*/
+
+    var debug = 0; // set to a number higher than zero to log debugs
+    if (debug > 0) { console.log("\n>> startSimon()") };
+
+    // Initiate Game!
     currentLevel++;
     simonPlay();
     pushToConsole(currentLevel);
 }
 
-// power off simon
+
+// power simon OFF
 function powerOffSimon() {
+
+    var debug = 0; // set to a number higher than zero to log debugs
+    if (debug > 0) { console.log("\n>> powerOffSimon()") };
+
     playTheme("off")
     pushToConsole("Powering off...", 20);
     $("#power").html(`POWER ON <i class="fas fa-toggle-off"></i>`);
@@ -267,37 +291,55 @@ function powerOffSimon() {
     }, 2000)
 }
 
-// power on simon
+
+// power simon ON
 function powerOnSimon() {
+
+    var debug = 0; // set to a number higher than zero to log debugs
+    if (debug > 0) { console.log("\n>> powerOnSimon()") };
+
     playTheme("on")
     $("#power").html(`POWER OFF <i class="fas fa-toggle-on"></i>`);
-    /* Initialise simon */
+    // Initialise simon 
     if (simonSelection.length === 0) {
         intialiseSimon(); // arguably at this level it will always be empty
     };
 }
 
+
+// initialise simon
 function intialiseSimon() {
-    /*
-    generate random integers ranging from 1 to 4 for "levelsNum" rounds!
-    levelsNum:   total number of levels as integers; users reaching this level win;
-    */
+
+    // generate random integers ranging from 1 to 4 for "levelsNum" rounds!
+    // levelsNum:   total number of levels as integers; users reaching this level win;
+
+    var debug = 0; // set to a number higher than zero to log debugs
+    if (debug > 0) { console.log("\n>> intialiseSimon()") };
+
     for (var i = 0; i < levelsNum; i++) {
         simonSelection[i] = Math.ceil((Math.random() * 4));
-    }
+    };
+    
     // start console
     pushToConsole("press 'PLAY' to start", 15);
-    console.log("intialiseSimon():  simonSelection = ", simonSelection)
+    
+    if (debug > 0) {console.log("\tsimonSelection = ", simonSelection) };
+    
 }
 
 
+// play simon selections
 function simonPlay(cheat = false, level = 0) {
-    /*  level:  play simon at this level
-        test:   allows playing of the simon-held selections without 
-                having to complete the sequence
-        */
-    console.log("\nsimonPlay():")
+    
+    /*
+    cheat:  skip current level to the next level.    
+    level:  if cheat=== true jump to this level.
+    */
 
+    var debug = 0; // set to a number higher than zero to log debugs
+    if (debug > 0) { console.log("\n>> simonPlay()") };
+    
+    // if cheat enabled!
     if (cheat) {
         if (level == 0) {
             currentLevel++;
@@ -311,16 +353,16 @@ function simonPlay(cheat = false, level = 0) {
 
     // set data with respect to currentLevel
     simonLevelData = simonSelection.slice(0, currentLevel);
-    console.log("simonLevelData = ", simonLevelData)
+    if (debug > 0) { console.log("\tsimonLevelData = ", simonLevelData) };
 
     if (simonSelection.length > 1) {
         var i = 0; // counter for setInterval loop
         var inter = setInterval(function() {
             simulateClick(simonSelection[i]);
             i++;
-            // console.log("simonSelection[i-1] = ", simonSelection[i - 1], i, currentLevel)
+            
             if (i >= currentLevel) {
-                console.log("\tinter cleared!", "currentLevel = ", currentLevel, "steps = ", i)
+                if (debug > 0) { console.log(`\tsetInterval() cleared at level "${currentLevel}" after "${i}" steps`) };
                 clearInterval(inter);
             }
         }, 500);
@@ -329,6 +371,7 @@ function simonPlay(cheat = false, level = 0) {
 
 
 /* ============================== Handlers and other functions ============================== */
+
 // a generic cheating function to be implemented for the user to cheat!
 // same as " simonPlay(true) or simonPlay(true, level) "
 function cheat(level) {
@@ -359,6 +402,7 @@ function playResetHandler() {
     });
 }
 
+
 // revert back to the PLAY button from reset
 function restorePlay() {
     resetSimon();
@@ -367,21 +411,23 @@ function restorePlay() {
     $("#start-reset").removeClass("reset")
 }
 
+// handle enabling and disable of the hidden cheat console
 function hiddenConsoleHandler() {
-    // enable hidden console! - DO NOT WISH TO TOGGLE!; pressing and holding ctrl would manifest weird behaviour
+    
+    // enable hidden console! - DO NOT USE TOGGLE!; pressing and holding ctrl would cause weird behaviour
     $(document).keydown(function(event) {
         if (event.which === 17) {
             enableCheats(true);
         };
     });
 
-    // disable hidden console! - DO NOT WISH TO TOGGLE!; pressing and holding ctrl would manifest weird behaviour
+    // disable hidden console! - DO NOT USE TOGGLE!; pressing and holding ctrl would cause weird behaviour
     $(document).keyup(function(event) {
         if (event.which === 17) {
             enableCheats(false);
         };
     });
-
+    
     $("#hint").click(function() {
         if ($("#start-reset").hasClass("reset")) {
             simonPlay();
@@ -409,6 +455,7 @@ function strictHandler() {
     });
 }
 
+
 // handle toggle sound theme button
 function soundThemeHandler() {
     // toggle through sound themes!
@@ -418,7 +465,7 @@ function soundThemeHandler() {
 }
 
 
-// handle level button (id =tier)
+// handle level button (id = tier)
 function setLevelHanlder() {
     $(".tier").click(function() {
         setLevelsNum();
