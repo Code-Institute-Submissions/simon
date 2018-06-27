@@ -1,7 +1,7 @@
 //  ========================= initialisations ============================ 
 var userSelection = []; // to store user sequence
 var simonSelection = []; // to store computer generated sequence
-const WING_ID_TO_CLASS_OBJ = {1: "green-hit", 2: "red-hit", 3: "yellow-hit", 4: "blue-hit"};
+const WING_ID_TO_CLASS_OBJ = { 1: "green-hit", 2: "red-hit", 3: "yellow-hit", 4: "blue-hit" };
 var levelsNum = 20; // maximun number of levels. users reaching this level will win.
 var currentLevel = 0; // shows current level 
 var simonLevelData; // hold currentLevel simon selections if currentLevel = 3 then simonLevelData.length = 3
@@ -33,9 +33,9 @@ $(document).ready(function() {
             strictHandler(); // handle strict button functionality
             handleUserPlay(); // handle user clicks - make sound, highlight etc....
 
-        }; 
-    }); 
-}) 
+        };
+    });
+})
 //  ================================ end ================================ 
 
 
@@ -43,7 +43,7 @@ $(document).ready(function() {
 //  ================================ general functions ================================
 // push to console display
 function pushToConsole(val, size) {
-    
+
     if (typeof val === "number") {
         $(".display").css("fontSize", 110)
         $(".display").text(IntegerPrecision(val));
@@ -59,7 +59,7 @@ function pushToConsole(val, size) {
         $(".display").css("fontSize", DisplayFontSize)
         $(".display").text(val);
     };
-    
+
     // if number is less than 10, add "0" behind it to show number as two digits
     function IntegerPrecision(number) {
         return (number < 10 ? '0' : '') + number;
@@ -68,7 +68,7 @@ function pushToConsole(val, size) {
 
 // get what's displaying on the console and its size
 function getDisplayTxt() {
-    
+
     var val = $(".display").text();
     var size = $(".display").css("fontSize");
     size = parseInt(size.replace("px", ""));
@@ -88,7 +88,7 @@ function enableCheats(val) {
 
 // set a new value for levelsNum
 function setLevelsNum() {
-    
+
     levelsNum = parseInt(prompt("Please enter the maximum number of levels as an integer.\nNote: Number has be to greater than 4."));
     console.log("levelsNum =", levelsNum, typeof levelsNum)
 
@@ -107,52 +107,61 @@ function setLevelsNum() {
 
 /* ================================ click simulation functions ================================ */
 
-function pressKey(input, debug = 0) {
-
-    if (debug > 0) { console.log("\n>> pressKey()") }
-
-    if (Number.isInteger(input)) {
-
-        var wing = $(`#${input}`)
-        wing.addClass( WING_ID_TO_CLASS_OBJ[input] );
-        playTune(input) // play tune
-
-        if (debug > 0) { console.log("\tinput is a single integer:", input, "wingClass =", wingClass) };
-    }
-}
-
-
-function releaseKey(input) {
-    var wing = $(`#${input}`)
-    wing.removeClass( WING_ID_TO_CLASS_OBJ[input] );
-}
-
-function simulateClick(input) {
+// simulate a click 
+function simulateClick(input, debug = 0) {
+    
     pressKey(input);
     setTimeout(function() {
         releaseKey(input);
     }, 250);
+
+    // nested function:  simulate pressing the key
+    function pressKey(input) {
+
+        if (debug > 0) { console.log("\n>> pressKey()") }
+
+        if (Number.isInteger(input)) {
+
+            var wing = $(`#${input}`)
+            wing.addClass(WING_ID_TO_CLASS_OBJ[input]);
+            playTune(input) // play tune
+
+            if (debug > 0) {console.log(`\tadded "${WING_ID_TO_CLASS_OBJ[input]}" class to wing id "${input}"`)};
+        };
+    };
+    
+    // nested function:  simulate releasing the key
+    function releaseKey(input) {
+        
+        if (debug > 0) { console.log("\n>> releaseKey()") }
+        
+        var wing = $(`#${input}`)
+        wing.removeClass(WING_ID_TO_CLASS_OBJ[input]);
+        
+        if (debug > 0) {console.log(`\tremoved "${WING_ID_TO_CLASS_OBJ[input]}" class to wing id "${input}"`)};
+    };
+
 }
 
 /* ================================ user functions ================================ */
 function handleUserPlay() {
     /*handle the user's clicks*/
-    
+
     $("#1").click(function() {
-        if ($("#start-reset").hasClass("reset")) {processClick(1);};
+        if ($("#start-reset").hasClass("reset")) { processClick(1); };
     });
 
     $("#2").click(function() {
-        if ($("#start-reset").hasClass("reset")) {processClick(2);};
+        if ($("#start-reset").hasClass("reset")) { processClick(2); };
     });
 
 
     $("#3").click(function() {
-        if ($("#start-reset").hasClass("reset")) {processClick(3);};
+        if ($("#start-reset").hasClass("reset")) { processClick(3); };
     });
 
     $("#4").click(function() {
-        if ($("#start-reset").hasClass("reset")) {processClick(4);};
+        if ($("#start-reset").hasClass("reset")) { processClick(4); };
     });
 
     // nested funtion to avoid repetition
@@ -417,4 +426,3 @@ function setLevelHanlder() {
     })
 
 }
-
