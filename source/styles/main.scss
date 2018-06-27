@@ -5,6 +5,7 @@ font-family: 'Ubuntu Mono', monospace; */
 @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Zilla+Slab+Highlight:400,700');
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 @import "colors";
+@import "theming";
 @import "variables";
 @import "mixins";
 @import "elements";
@@ -13,7 +14,7 @@ font-family: 'Ubuntu Mono', monospace; */
 body {
     // background-color: map-get($color, green);
     // background-color: nth($bgHex, 3);
-    background: url(nth($bgUrl, 3)); // padding: 1rem;
+    // background: url(nth($bgUrl, 3)); // padding: 1rem;
 }
 
 header {

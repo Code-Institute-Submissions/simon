@@ -26,11 +26,11 @@ $(document).ready(function() {
             powerOnSimon(); // power on simon
 
             /*Hanlders introduced to reduce clutter*/
-            toggleTags(); // handle the tags
             playResetHandler(); // handle PLAY/RESET button
             hiddenConsoleHandler(); // handle hidden console via CTRL
             setLevelHanlder(); // handle level button (id =tier)
             soundThemeHandler(); // handle toggle sound-theme button
+            tagsHandler(); // handle the tags
             strictHandler(); // handle strict button functionality
             handleUserPlay(); // handle user clicks - make sound, highlight etc....
 
@@ -477,7 +477,7 @@ function setLevelHanlder() {
 
 
 // handle the tags
-function toggleTags() {
+function tagsHandler() {
     $("#tags").click(function() {
         $(this).toggleClass("on");
         if ($(this).hasClass("on")) {

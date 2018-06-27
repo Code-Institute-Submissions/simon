@@ -17,7 +17,7 @@ font-family: 'Ubuntu Mono', monospace; */
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   background-color: #ff6600; }
   .btn:hover {
@@ -50,9 +50,6 @@ font-family: 'Ubuntu Mono', monospace; */
   @media screen and (max-width: 3000px) and (min-width: 576px) {
     .wrapper {
       max-width: 70%; } }
-
-body {
-  background: url("http://cdn.backgroundhost.com/backgrounds/subtlepatterns/green_dust_scratch.png"); }
 
 header {
   background-color: #00ffff; }
@@ -184,7 +181,7 @@ header {
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   background-color: #ff0000; }
 
@@ -202,7 +199,7 @@ header {
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   background-color: #ff0000; }
 
@@ -220,7 +217,7 @@ header {
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   width: 10rem; }
 
