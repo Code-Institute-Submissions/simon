@@ -1,38 +1,60 @@
-@mixin mQ($arg...) {
-    @if length($arg)==1 {
-        @media screen and (max-width: nth($arg, 1)) {
-            @content;
+
+// media query min-max width-height
+@mixin makeRes($arg...) {
+    @if length($arg)==2 {
+
+        @if nth($arg, 1)=="minW" {
+            @media screen and (min-width: nth($arg, 2)) {
+                @content
+            }
+        }
+        @else if nth($arg, 1)=="maxW" {
+            @media screen and (max-width: nth($arg, 2)) {
+                @content
+            }
+        }
+        @else if nth($arg, 1)=="minH" {
+            @media screen and (min-height: nth($arg, 2)) {
+                @content
+            }
+        }
+        @else if nth($arg, 1)=="maxH" {
+            @media screen and (max-height: nth($arg, 2)) {
+                @content
+            }
         }
     }
-    @if length($arg)==2 {
-        @media screen and (max-width: nth($arg, 1)) and (min-width: nth($arg, 2)) {
-            @content;
+    @else {
+        // min and max width 
+        @if nth($arg, 1)=="w" {
+            @media screen and (min-width: nth($arg, 2)) and (max-width: nth($arg, 3)) {
+                @content;
+            }
+        }
+        @else {
+            @media screen and (min-height: nth($arg, 2)) and (max-height: nth($arg, 3)) {
+                @content;
+            }
         }
     }
 }
 
 ;
 
-// button template
-@mixin btn {
-    // bootstrap v4 styling
-    display: inline-block;
-    font-weight: 700;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: 1rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    @content;
+
+// adjust size of elements
+@mixin wingsAdjust($arg) {
+        width: pix2Rem($arg);
+        height: pix2Rem($arg);
+
 }
+
+// set minimum width and height
+@mixin wingsAdjustSetMin($arg) {
+        min-width: pix2Rem($arg);
+        min-height: pix2Rem($arg);
+}
+
 
 // convert pixel input to rem
 @function pix2Rem($args...) {
@@ -44,6 +66,9 @@
     }
 }
 
+;
+
+
 // convert rem input to pixel
 @function remt2Pix($args...) {
     @if length(args)==1 {
@@ -54,15 +79,22 @@
     }
 }
 
+;
+
+
 // template for individual wings
 @mixin wing($wing, $wTop, $wRight, $wBottom, $wLeft) {
     border: solid black;
     background-color: map-get($color, $wing);
+    color: map-get($color, black);
     border-top-width: pix2Rem($wTop);
     border-right-width: pix2Rem($wRight);
     border-bottom-width: pix2Rem($wBottom);
     border-left-width: pix2Rem($wLeft);
-    font-size: pix2Rem($wingFontSize);
+    font-size: pix2Rem($wingFontSizeBig);
+    @media ( max-height: 800px) {
+        font-size: pix2Rem($wingFontSizeSmall);
+    }
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -71,6 +103,8 @@
     user-select: none;
     @content
 }
+
+;
 
 
 // template for the display

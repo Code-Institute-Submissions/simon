@@ -11,135 +11,86 @@ font-family: 'Ubuntu Mono', monospace; */
 @import "elements";
 @import "layout";
 
-body {
-    // background-color: map-get($color, green);
-    // background-color: nth($bgHex, 3);
-    // background: url(nth($bgUrl, 3)); // padding: 1rem;
-}
-
-header {
-    background-color: map-get($color, cyan);
-    h1 {
-        text-align: center;
-    }
-}
-
-.simon {
-    width: pix2Rem(1070);
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    
-    .wings-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        width: pix2Rem(645);
-        align-self: center;
-        
-        .wing {
-            width: pix2Rem(300);
-            height: pix2Rem(300);
-            z-index: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        } // end of wing
-    } // end of wings-wrapper
-    
-    .console {
-        align-self: center;
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: center;
-        
-        .display {
-            margin-bottom: pix2Rem($consoleDisplayMargin);
-        }
-        
-        h2 {
-            margin-bottom: 0px;
-        }
-        .console-primary {
-            margin-bottom: pix2Rem($consoleItemsMargin);
-        }
-        .console-secondar {
-            margin-bottom: pix2Rem($consoleItemsMargin);
-        }
-        .console-hidden {
-            margin-top: pix2Rem($consoleItemsMargin);
-            display: none;
-        }
-    }
-}
 
 // -------------- indivual wings ---------------------------
 .green {
     // wing, top, right, bottom, left border width
-    @include wing(green, 15, 7.5, 7.5, 15) {
+    @include wing(green,
+    15,
+    7.5,
+    7.5,
+    15) {
         border-top-left-radius: $wingRadius;
     }
 }
 
 .red {
     // wing, top, right, bottom, left border width
-    @include wing(red, 15, 15, 7.5, 7.5) {
+    @include wing(red,
+    15,
+    15,
+    7.5,
+    7.5) {
         border-top-right-radius: $wingRadius;
     }
 }
 
 .yellow {
     // wing, top, right, bottom, left border width
-    @include wing(yellow, 7.5, 7.5, 15, 15) {
+    @include wing(yellow,
+    7.5,
+    7.5,
+    15,
+    15) {
         border-bottom-left-radius: $wingRadius;
     }
 }
 
 .blue {
     // wing, top, right, bottom, left border width
-    @include wing(blue, 7.5, 15, 15, 7.5) {
+    @include wing(blue,
+    7.5,
+    15,
+    15,
+    7.5) {
         border-bottom-right-radius: $wingRadius;
     }
 }
 
 // hit wings
 .green-hit {
-  background-color: darken(map-get($color, green), $darkenIntensity); // !important;  not sure if it's needed at all!
+    background-color: darken(map-get($color, green), $darkenIntensity); // !important;  not sure if it's needed at all!
 }
 
 .red-hit {
-  background-color: darken(map-get($color, red), $darkenIntensity); // !important;  not sure if it's needed at all!
+    background-color: darken(map-get($color, red), $darkenIntensity); // !important;  not sure if it's needed at all!
 }
 
 
 .yellow-hit {
-  background-color: darken(map-get($color, yellow), $darkenIntensity); // !important;  not sure if it's needed at all!
+    background-color: darken(map-get($color, yellow), $darkenIntensity); // !important;  not sure if it's needed at all!
 }
 
 
 .blue-hit {
-  background-color: darken(map-get($color, blue), $darkenIntensity); // !important;  not sure if it's needed at all!
+    background-color: darken(map-get($color, blue), $darkenIntensity); // !important;  not sure if it's needed at all!
 }
 
 
 
 // ---------------------------
 /* buttons with special needs*/
+
 .reset {
-    @include btn {
-        background-color: map-get($color, red);
-    }
+    background-color: map-get($color, red);
 }
 
 .power-off {
-    @include btn {
-        background-color: map-get($color, red);
-    }
+    background-color: map-get($color, red);
 }
 
 .sound {
-    @include btn {
-        width: pix2Rem(160);
-    }
+    width: pix2Rem(160);
 }
 
 .on {

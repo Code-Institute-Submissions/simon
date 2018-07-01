@@ -23,20 +23,29 @@ to ask:
         incorrectly - show yoni the misbehaviour!
             - when simon playing clicks still registering
             - user extra selections can mes up the next simon sequence
-    - ($arg...) for javascript
-    
-    
 
-
+    
 <input type="number" name="quantity" min="4" max="20"> and  a button to confirm
-chnage myscript name    git mv myScript.js main.js
 
-            
-            
-add some element to the front of the page (maybe with a big z index) to say "loading..."
-and then in the part of your js which loads last (such that after its done, 
-you are sure that the game is ready), 
-add a statement to remove that element (e.g. set `display: none`) (edited)
 
 cosmetic
 https://blog.github.com/2008-12-19-github-ribbons/
+
+
+- fix navbar - through mixin
+- fix footer - through mixin
+- simon divs dimensions need revamping
+- pick colouring theme
+- pick background
+- fix CDNs download them or not?
+- expand the page too 100%
+- rename TAGS to colour-blind 
+- change levels to a form?
+
+
+
+
+to list for write up
+
+QHD caused problems
+XPS 13 - 13 inch 1080p screen  set to 125% caused problems

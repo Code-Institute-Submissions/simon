@@ -8,9 +8,10 @@
   <!--scripts-->
   <script src="source/js/cdn/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+  <script src="source/js/cdn/bootstrap.min.js"></script>
 
-  <!--css-->
-  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+  <!--css/scss-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="source/styles/main.css" type="text/css" />
 
@@ -20,44 +21,80 @@
 
 <body>
 
-  <div class="wrapper">
-    <header>
-      <h1>GAME ON!</h1>
-    </header>
-
-    <div class="simon">
-      <div class="wings-wrapper">
-        <div id="1" class="wing green"></div>
-        <div id="2" class="wing red"></div>
-        <div id="3" class="wing yellow"></div>
-        <div id="4" class="wing blue"></div>
+  <header>
+    <nav class="navbar">
+      <a class="navbar-brand" href="index.html">
+        <h2>SIMON</h2>
+      </a>
+      <div class="nav-items">
+        <a class="nav-link" target="_blank" href="https://en.wikipedia.org/wiki/Simon_(game)">Rules <span class="sr-only">(current)</span></a>
+        <a class="nav-link" target="_blank" href="https://www.amazon.co.uk/Hasbro-Gaming-Classic-Simon-b7962eu4/dp/B0719JFC2X">Buy <span class="sr-only">(current)</span></a>
       </div>
-      <div class="console">
-        <h2>CONSOLE</h2>
-        <div class="display"></div>
-        <div class="console-primary">
-          <button id="start-reset" class="btn ">PLAY <i class="fas fa-play"></i></button>
-          <button id="power" class="btn ">POWER ON <i class="fas fa-toggle-off"></i></button>
-          <button id="strict" class="btn ">STRICT <i class="fas fa-toggle-off"></i></button>
-        </div>
-        <div class="console-secondary">
-          <button class="btn tier">20 LEVELS</button>
-          <button id="tags" class="btn ">TAGS</button>
-          <button class="btn sound">SIMON <i class="fas fa-volume-up"></i></button>
-        </div>
-        <div class="console-hidden">
-          <button id="hint" class="btn ">hint <i class="fas fa-question-circle"></i></button>
-          <button id="skip" class="btn ">skip level <i class="fas fa-step-forward"></i></button>
-        </div>
+    </nav>
+  </header>
+
+  <section class="wrapper">
+
+    <div class="wings-wrapper">
+      <div id="1" class="wing green"></div>
+      <div id="2" class="wing red"></div>
+      <div id="3" class="wing yellow"></div>
+      <div id="4" class="wing blue"></div>
+    </div>
+
+    <div class="console">
+      <h2>CONSOLE</h2>
+      <div class="display"></div>
+
+      <div class="console-primary">
+        <button id="start-reset" class="btn ">PLAY <i class="fas fa-play"></i></button>
+        <button id="power" class="btn ">POWER ON <i class="fas fa-toggle-off"></i></button>
+        <button id="strict" class="btn ">STRICT <i class="fas fa-toggle-off"></i></button>
+      </div>
+
+      <div class="console-secondary">
+        <button class="btn tier">20 LEVELS</button>
+        <button id="tags" class="btn ">TAGS</button>
+        <button class="btn sound">SIMON <i class="fas fa-volume-up"></i></button>
+      </div>
+      <div class="console-hidden">
+        <button id="hint" class="btn ">hint <i class="fas fa-question-circle"></i></button>
+        <button id="skip" class="btn ">skip level <i class="fas fa-step-forward"></i></button>
       </div>
 
     </div>
-    <!-- end of simon -->
-  </div>
-  <!-- end of wrapper -->
 
+  </section>
 
-  <audio id="tunes"></audio>
+  <section class="trivia">
+    <div class="info">
+      <h3>Trivia</h3>
+      <p class="lead">Get ready to watch, remember, repeat! The Simon game is the exciting memory game (very easy to pick up) of lights and sounds released by Milton Bradley in 1978 that became an instant hit world wide. Launched at Studio 54 in New York, players must
+        repeat random sequences of lights by pressing the colored pads in the correct order. It's fast-paced play, with lights and sounds that can challenge you. Experience the fun as you repeat the patterns and advance to higher levels. </p>
+    </div>
+    <div class="hint">
+      <h3>Hint</h3>
+      <p class="lead">While the game is running, you may hold <span>"Ctrl"</span> to gain access to the hidden console.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-social">
+        <ul class="list-inline social-links">
+          <li><a href="https://twitter.com/13damianism" target="_blank"><i class="fab fa-twitter"></i></a></li>
+          <li><a href="https://uk.linkedin.com/in/damian-rodbari" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+          <li><a href="https://github.com/damianism" target="_blank"><i class="fab fa-github"></i></a></li>
+          <li><a href="https://www.youtube.com/channel/UCM9_4SriRFp17bh2jZujgZQ/featured?view_as=subscriber" target="_blank"><i class="fab fa-youtube"></i></a></li>
+          <li><a href="https://www.instagram.com/skullphish/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+      </div>
+      <div class="footer-copyright text-center">
+        © 2018 Copyright:
+        <a href="index.html">D.A RODBARI</a>
+      </div>
+    </div>
+  </footer>
 
   <script type="text/javascript" src="source/js/scripts/audio.js"></script>
   <script type="text/javascript" src="source/js/scripts/main.js"></script>

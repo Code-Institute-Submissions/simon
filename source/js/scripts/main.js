@@ -42,6 +42,7 @@ $(document).ready(function() {
 
 //  ################################   ALL FUNCTIONS   ###############################
 //  ================================ general functions ================================
+
 // push to console display
 function pushToConsole(val, size) {
 
@@ -67,6 +68,7 @@ function pushToConsole(val, size) {
     };
 }
 
+
 // get what's displaying on the console and its size
 function getDisplayTxt() {
 
@@ -75,6 +77,7 @@ function getDisplayTxt() {
     size = parseInt(size.replace("px", ""));
     return val, size;
 }
+
 
 // used with keyup/keydown methods to brieflt show the hidden console - bound to "CTRL" key 
 function enableCheats(val) {
@@ -86,6 +89,7 @@ function enableCheats(val) {
         $(".console-hidden").hide("drop", "slow");
     };
 }
+
 
 // set a new value for levelsNum
 function setLevelsNum() {
@@ -181,6 +185,7 @@ function handleUserPlay() {
         checkData(id);
     };
 }
+
 
 // check user selection
 function checkData(input) {
@@ -385,6 +390,7 @@ function cheat(level) {
     }
 }
 
+
 // press PLAY to start then RESET to reset
 function playResetHandler() {
     $("#start-reset").click(function() {
@@ -404,6 +410,7 @@ function playResetHandler() {
 }
 
 
+
 // revert back to the PLAY button from reset
 function restorePlay() {
     resetSimon();
@@ -411,6 +418,7 @@ function restorePlay() {
     $("#start-reset").html(`PLAY <i class="fas fa-play"></i>`);
     $("#start-reset").removeClass("reset")
 }
+
 
 // handle enabling and disable of the hidden cheat console
 function hiddenConsoleHandler() {
@@ -441,6 +449,7 @@ function hiddenConsoleHandler() {
         }
     })
 }
+
 
 // handle strict button 
 function strictHandler() {

@@ -1,11 +1,17 @@
-$rembase: 16;         // root rem size
+$rembase: 16; // root rem size
+
+//wing-wrapper
+$wings-wrapper: 500;
+$wingsWrapperThreshold: 250;
+
 
 // wings
-$wingRadius: 20%;     // corner radius of the wings
-$wingFontSize: 200;     // corner radius of the wings
-$size-h1: 4rem;       // header h1 font size
-$darkenIntensity: 40;    // darken color by the given percentage e.g 30% darker
+$wingRadius: 20%; // corner radius of the wings
+$wingFontSizeBig: 200; // corner radius of the wings
+$wingFontSizeSmall: 100; // corner radius of the wings
+$size-h1: 4rem; // header h1 font size
+$darkenIntensity: 40; // darken color by the given percentage e.g 30% darker
 
 // console
-$consoleDisplayMargin: 10; 
-$consoleItemsMargin: 4; 
+$consoleDisplayMargin: 10;
+$consoleItemsMargin: 4;

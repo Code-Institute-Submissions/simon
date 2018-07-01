@@ -2,9 +2,9 @@
 
 // general console buttons
 .btn {
-    @include btn {
-        background-color: map-get($color, orange);
-    }
+    
+    background-color: map-get($color, orange);
+    font-weight: 700;
     
     &:hover {
         background-color: map-get($color, black);
@@ -16,7 +16,7 @@
 // console display
 .display {
     // width, height, bgColor, fontColor, fontWeight, fontSize, borderRadius
-    @include scoreDisplay(360, 180, black, yellow, 700, 110, 5%) {
+    @include scoreDisplay(360, 180, black, yellow, 700, 110, 20px) {
         font-family: 'Press Start 2P', cursive;
         line-height: pix2Rem(200);
     }

@@ -3,15 +3,228 @@
     font-size: $rembase;
 }
 
-.wrapper {
+html,
+body {
+    height: 100%;
     width: 100%;
+    margin: 0;
+}
+
+.wrapper {
+    background-image: url(nth($bgUrl, 4)); // background-image: url('../img/wood.jpeg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
     padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-    @include mQ(3000px,
-    576px) {
-        max-width: 70%;
+    padding-left: 15px; // margin-right: auto;
+    margin: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    @include makeRes("minW", 1025px) {
+        flex-flow: row nowrap;
+        
+        // to cater for small screens with high resolutions 
+        // XPS 13 - 13 inch 1080p screen scaled to 125% - no problems observed on 100%
+        @include makeRes("minH", 900px) {
+            height: calc(100% - 415px);
+        }
+        
+    }
+}
+
+.trivia {
+    
+    background-color: map-get($color, beige);
+    display: flex;
+    flex-flow: column nowrap;
+    
+    p, h3 {
+        margin: 0px auto;
+    }
+    
+    div {
+        margin: 20px;
+    }
+    
+    .info {
+        flex: 3
+    }
+    
+    .hint {
+        flex: 1
+    }
+    
+    @include makeRes("minW", 1025px) {
+        flex-flow: row wrap;
+        height: 253px;
+    } 
+}
+
+span {
+    color: red;
+    font-weight: 500;
+}
+
+.wings-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: pix2Rem($wingsWrapperThreshold);
+    min-height: pix2Rem($wingsWrapperThreshold);
+    @include wingsAdjust($wings-wrapper);
+    @include makeRes("maxW", 499px) {
+        @include wingsAdjust(300);
+        @include wingsAdjustSetMin(250);
+    }
+    
+    // to cater for 1440p QHD+ resolutions
+    @include makeRes("minH", 1100px) {
+        @include wingsAdjust(700);
+        @include wingsAdjustSetMin(500);
+        
+        @include makeRes("maxW", 730px) {
+            @include wingsAdjust(400);
+            @include wingsAdjustSetMin(300);
+        }
+    }
+    
+    align-content: stretch;
+    margin: pix2Rem(20);
+
+
+    .wing {
+        flex-basis: 50%;
+        margin: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        @include makeRes("maxW", 1025px) {
+            font-size: 80px;
+        }
+        
+        @include makeRes("minW", 1026px) {
+            font-size: 150px;
+        }
+    }
+}
+
+.console {
+    align-self: center;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin: pix2Rem(20);
+
+    .display {
+        margin-bottom: pix2Rem($consoleDisplayMargin);
+        
+        @include makeRes("maxW", 1025px) {
+            height: 150px;
+            line-height: 10.375rem;
+        }
+
     }
 
+    h2 {
+        margin-bottom: 0px;
+    }
+    .console-primary {
+        margin-bottom: pix2Rem($consoleItemsMargin);
+    }
+    .console-secondar {
+        margin-bottom: pix2Rem($consoleItemsMargin);
+    }
+    .console-hidden {
+        margin-top: pix2Rem($consoleItemsMargin);
+        display: none;
+    }
+}
+
+
+// -------------------------------------------------------- Nav
+
+nav {
+    height: pix2Rem(50);
+    background-color: map-get($color, yankee-blue);
+
+    .navbar {
+        padding: 0px !important; // padding: .5rem 1rem;
+    }
+
+    h2,
+    .nav-items {
+        color: map-get($color, peach) !important;
+    }
+
+    .nav-items {
+        display: flex;
+        flex-direction: row;
+
+        a {
+            color: map-get($color, peach);
+            &:hover {
+                color: map-get($color, tomato);
+            }
+        }
+    }
+}
+
+
+// -------------------------------------------------------- Footer
+.footer-container {
+    background-color: map-get($color, yankee-blue);
+}
+
+.footer-social div ul {
+    margin: 0px;
+}
+
+
+.social-links {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1rem;
+}
+
+.footer-social .social-links li a {
+    padding: 0 10px;
+}
+
+.footer-social .social-links li a i {
+    width: 40px;
+    height: 40px;
+    padding: 12px 0;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    line-height: 1rem;
+    text-align: center;
+    color: #fafafa;
+    position: relative;
+    background-color: map-get($color, peach);
+    color: map-get($color, black);
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+}
+
+.footer-social .social-links li a i:hover {
+    background: map-get($color, red);
+    color: map-get($color, black);
+}
+
+.footer-copyright {
+    padding-bottom: 1rem;
+    color: map-get($color, peach);
+}
+
+footer a {
+    color: map-get($color, tomato);
 }
