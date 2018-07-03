@@ -30,8 +30,6 @@ aesthetic. However, the website is fully responsive on variety of devices and
 resolutions.
 
 ### What it does
-<img src="simon.png"/>
-
 
 Simon plays a randomly generated sequence for the player to repeat using colours
 and tones. The player has the sole goal of repeating the same sequence as Simon
@@ -40,6 +38,8 @@ progresses to higher levels.
 
 Features
 ========
+
+<img src="source/img/simon.png"/>
 
 The features are split into two groups, the ‘core features’ are needed for the
 game to function properly and the additional features to make the experience
