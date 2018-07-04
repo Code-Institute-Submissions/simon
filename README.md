@@ -39,7 +39,7 @@ progresses to higher levels.
 Features
 ========
 
-<img src="source/img/simon.png"/>
+<img src="source/img/md/cheat.gif"/>
 
 The features are split into two groups, the ‘core features’ are needed for the
 game to function properly and the additional features to make the experience
