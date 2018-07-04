@@ -19,7 +19,7 @@ Project’s core functionality
 
 ### Aim
 
-\<img src="source/img/simon.png"/\>
+<img src="source/img/simon.png"/>
 
 To re-create the classic memory game of
 “[SIMON](https://en.wikipedia.org/wiki/Simon_(game))” as a website, where the
@@ -49,7 +49,7 @@ features to make the experience more pleasant and fun for the player.
 
 1.  Smart Console
 
-    \<img src="source/img/md/reset_power. gif"/\>
+    <img src="source/img/md/reset_power. gif">
 
     -   Shows the level progression, resetting, wrong selections, winning,
         losing messages etc with an arcade themed font.
@@ -69,7 +69,7 @@ features to make the experience more pleasant and fun for the player.
 
 5.  Reset game
 
-    \<img src="source/img/md/reset_power. gif"/\>
+    <img src="source/img/md/reset_power. gif"/>
 
     -   Reset the current game - console aided.
 
@@ -91,7 +91,7 @@ features to make the experience more pleasant and fun for the player.
 
 9.  Strict mode
 
-    \<img src="source/img/md/strict_lose. gif"/\>
+    <img src="source/img/md/strict_lose. gif"/>
 
     -   While this mode is active, any wrong selections made by the player will
         end the game abruptly, as opposed to the ‘normal mode’ where the
@@ -103,7 +103,7 @@ features to make the experience more pleasant and fun for the player.
 
 1.  Level-Setter
 
-    \<img src="source/img/md/level. gif"/\>
+    <img src="source/img/md/level. gif">
 
     -   Using the “LEVELS” button, the maximum number of level can be manually
         set by the player.
@@ -116,7 +116,7 @@ features to make the experience more pleasant and fun for the player.
 
 2.  Hidden “CHEAT” Console
 
-    \<img src="source/img/md/cheat. gif"/\>
+    <img src="source/img/md/cheat. gif"/>
 
     -   Holding the “CTRL” key while the game is in session will slide in a
         hidden “CHEAT” console, granting the player the two abilities listed
@@ -140,7 +140,7 @@ features to make the experience more pleasant and fun for the player.
 3.  Multiple sound themes to choose from including ‘mute’, the list of which are
     listed below:
 
-    \<img src="source/img/md/soundThemes.gif"/\>
+    <img src="source/img/md/soundThemes.gif"/>
 
     -   Simon – default
 
@@ -155,7 +155,7 @@ features to make the experience more pleasant and fun for the player.
 
 4.  Colour-blind friendly
 
-    \<img src="source/img/md/tags.gif"/\>
+    <img src="source/img/md/tags.gif"/>
 
     -   “TAGS” button – Toggle on and off numbers on the pads, making it easier
         for the colour-blind to keep track the sequence.
@@ -332,7 +332,7 @@ Testing
 
 ### Logic Debugging
 
-\<img src="source/img/md/debug_testing.png"/\>
+<img src="source/img/md/debug_testing.png"/>
 
 All the core functions within the main script are equipped with a debugging
 system enable from within the function itself. This method of debugging is fast,
