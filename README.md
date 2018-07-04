@@ -1,25 +1,9 @@
-                                                          Y\     /Y
-                                                          | \ _ / |
-                                    _____                 | =(_)= |
-                                ,-~"     "~-.           ,-~\/^ ^\/~-.
-                              ,^ ___     ___ ^.       ,^ ___     ___ ^.
-                             / .^   ^. .^   ^. \     / .^   ^. .^   ^. \
-                            Y  l    O! l    O!  Y   Y  lo    ! lo    !  Y
-                            l_ `.___.' `.___.' _[   l_ `.___.' `.___.' _[
-                            l^~"-------------"~^I   l^~"-------------"~^I
-                            !\,               ,/!   !                   !
-                             \ ~-.,_______,.-~ /     \                 /
-                              ^.             .^       ^.             .^ 
-                                "-.._____.,-"           "-.._____.,-"
-                            
-
+<img src="source/img/md/intro.png"/>
 
 Project’s core functionality
 ============================
 
 ### Aim
-
-<img src="source/img/md/intro.png"/>
 
 To re-create the classic memory game of
 “[SIMON](https://en.wikipedia.org/wiki/Simon_(game))” as a website, where the
@@ -49,8 +33,6 @@ features to make the experience more pleasant and fun for the player.
 
 1.  Smart Console
 
-    <img src="source/img/md/reset_power.gif">
-
     -   Shows the level progression, resetting, wrong selections, winning,
         losing messages etc with an arcade themed font.
 
@@ -68,7 +50,7 @@ features to make the experience more pleasant and fun for the player.
     -   Initiates the game.
 
 5.  Reset game
-
+    
     <img src="source/img/md/reset_power.gif"/>
 
     -   Reset the current game - console aided.
@@ -85,6 +67,8 @@ features to make the experience more pleasant and fun for the player.
         player selections – Console aided.
 
 8.  Check user sequence.
+    
+    <img src="source/img/md/winning.gif"/>
 
     -   Process the user selections. will decide if the player has won, lost,
         made the wrong selection and etc – Console aided.
@@ -101,20 +85,7 @@ features to make the experience more pleasant and fun for the player.
 
 ### Additional features
 
-1.  Level-Setter
-
-    <img src="source/img/md/level.gif">
-
-    -   Using the “LEVELS” button, the maximum number of level can be manually
-        set by the player.
-
-        -   By default, the number of levels is to ‘20’.
-
-        -   The minimum level that can be set by the player is ‘5’.
-
-        -   The maximum level has no limit. It could be set to any integer.
-
-2.  Hidden “CHEAT” Console
+1.  Hidden “CHEAT” Console
 
     <img src="source/img/md/cheat.gif"/>
 
@@ -136,6 +107,19 @@ features to make the experience more pleasant and fun for the player.
                 last level in order to win the game.
 
             -   This feature also makes testing the game significantly easier.
+
+2.  Level-Setter
+
+    <img src="source/img/md/level.gif">
+
+    -   Using the “LEVELS” button, the maximum number of level can be manually
+        set by the player.
+
+        -   By default, the number of levels is to ‘20’.
+
+        -   The minimum level that can be set by the player is ‘5’.
+
+        -   The maximum level has no limit. It could be set to any integer.
 
 3.  Multiple sound themes to choose from including ‘mute’, the list of which are
     listed below:
