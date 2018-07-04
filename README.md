@@ -19,6 +19,8 @@ Project’s core functionality
 
 ### Aim
 
+\<img src="source/img/simon.png"/\>
+
 To re-create the classic memory game of
 “[SIMON](https://en.wikipedia.org/wiki/Simon_(game))” as a website, where the
 user can play against the computer (Simon). The logic of the game was to be
@@ -39,15 +41,15 @@ progresses to higher levels.
 Features
 ========
 
-<img src="source/img/md/cheat.gif"/>
-
-The features are split into two groups, the ‘core features’ are needed for the
-game to function properly and the additional features to make the experience
-more pleasant and fun.
+The features of this game are split into two groups, the so called ‘core
+features’ are needed for the game to function properly and the additional
+features to make the experience more pleasant and fun for the player.
 
 ### Core features
 
 1.  Smart Console
+
+    \<img src="source/img/md/reset_power. gif"/\>
 
     -   Shows the level progression, resetting, wrong selections, winning,
         losing messages etc with an arcade themed font.
@@ -63,9 +65,11 @@ more pleasant and fun.
 
 4.  Start Game
 
-    -   Initiates the game
+    -   Initiates the game.
 
 5.  Reset game
+
+    \<img src="source/img/md/reset_power. gif"/\>
 
     -   Reset the current game - console aided.
 
@@ -83,9 +87,11 @@ more pleasant and fun.
 8.  Check user sequence.
 
     -   Process the user selections. will decide if the player has won, lost,
-        made the wrong selection and etc – Console aided
+        made the wrong selection and etc – Console aided.
 
 9.  Strict mode
+
+    \<img src="source/img/md/strict_lose. gif"/\>
 
     -   While this mode is active, any wrong selections made by the player will
         end the game abruptly, as opposed to the ‘normal mode’ where the
@@ -95,7 +101,9 @@ more pleasant and fun.
 
 ### Additional features
 
-1.  LEVELS-Setter
+1.  Level-Setter
+
+    \<img src="source/img/md/level. gif"/\>
 
     -   Using the “LEVELS” button, the maximum number of level can be manually
         set by the player.
@@ -107,6 +115,8 @@ more pleasant and fun.
         -   The maximum level has no limit. It could be set to any integer.
 
 2.  Hidden “CHEAT” Console
+
+    \<img src="source/img/md/cheat. gif"/\>
 
     -   Holding the “CTRL” key while the game is in session will slide in a
         hidden “CHEAT” console, granting the player the two abilities listed
@@ -130,6 +140,8 @@ more pleasant and fun.
 3.  Multiple sound themes to choose from including ‘mute’, the list of which are
     listed below:
 
+    \<img src="source/img/md/soundThemes.gif"/\>
+
     -   Simon – default
 
     -   River Raid – Inspired by a classic Attari game [River
@@ -142,6 +154,8 @@ more pleasant and fun.
     -   Mute – no sound
 
 4.  Colour-blind friendly
+
+    \<img src="source/img/md/tags.gif"/\>
 
     -   “TAGS” button – Toggle on and off numbers on the pads, making it easier
         for the colour-blind to keep track the sequence.
@@ -157,67 +171,176 @@ more pleasant and fun.
 Technologies used
 =================
 
--   JavaScript
+1.  JavaScript
 
-    -   Approximately 25 functions
+    -   Approximately 30 functions (5 nested).
 
-    -   5 nested functions
+2.  jQuery v3.3.1
 
-    -   Two user scripts
+    -   Used heavily throughout the project as main element selector with its
+        built-in functions which made the whole process of writing this game
+        easier.
 
--   jQueries
+3.  jQuery UI v1.12.1
 
-    -   version
+    -   Used for the sliding animation of the cheat console, "puff" and “drop”.
 
--   SASS
+4.  SASS
 
-    -   Used heavily
+    -   Adopted main method of styling. Used with combination of SASS variables,
+        mixins and functions in total of 7 scss files.
 
-    -   5 files in total
+5.  HTML5
 
--   HTML5
+6.  CSS
 
--   CSS
+    -   Used with SASS.
 
--   Flexbox
+7.  Flexbox
 
     -   Primary tool for centring items.
 
--   Bootstrap v4.1.0
+8.  Bootstrap v4.1.0
 
--   Font Awesome
+    -   Used for theming a hand full of elements.
 
-    -   Console buttons and footer
+9.  Font Awesome v5.0.13
 
--   Google fonts
+    -   Used on main, cheat console and footer.
 
-    -   For the console
+10. Google fonts
 
--   Gimp
+11. Camtasia
 
--   Microsoft Word
+    -   Used to record informative mini tutorials in gif format for the
+        README.md file.
 
--   Chrome and Firefox developer tools
+12. Gimp
 
--   Git/Github
+    -   Used to alter the size, colour and transparency of the images for the
+        website.
 
--   Cloud9
+    -   Used to crop gif files.
+
+13. Microsoft Word
+
+    -   To write up the content of the README.md file.
+
+14. Chrome and Firefox developer tools
+
+    -   Used extensively for live-testing and running numerous different tasks.
+        To name a few:
+
+        -   Testing core functions.
+
+        -   Website/grid responsiveness.
+
+        -   Element Colours, style, opacity and etc.
+
+        -   Aligning and centring.
+
+        -   Attribute value search.
+
+        -   Fluidity and core functionality of the website.
+
+15. Git/Github
+
+    -   Used to keep track of the project’s evolution with frequent commits and
+        informative messages.
+
+    -   GitHub was also used to access bootstrap’s source code.
+
+16. Cloud9
+
+    -   Used as the main editor.
 
 Content and file management
 ===========================
 
-List of all files
+### Logic
 
-Functions split into different sections simon, user and so on
+The logic is split into two scripts.
 
-Sass functions and mixins – list all
+1.  “main.js”
+
+where all the main logic is located.
+
+>   The functions within the main script are categorised into four sections.
+
+-   General – are the functions that are used through out the script and within
+    other functions. To name a few
+
+    -   pushToConsole() – to will print a value onto the console. It’s smart
+        enough to distinguished between numbers and strings.
+
+    -   getDisplayTxt() – fetches the content of console and its font size.
+
+-   Click simulation – this function has two other nested functions which as the
+    name suggests, simulates clicks and/or key pad presses.
+
+-   User functions – this section handles User selections, analyses user data
+    and decides whether the user/player has lost or won the game, and also
+    caters for the strict mode of the game.
+
+-   Simon – contains series of functions in charge of operating different game
+    tasks such as play sequence and resetting the console. To name a few
+
+    -   resetSimon()
+
+    -   startSimon()
+
+    -   intialiseSimon()
+
+    -   simonPlay()
+
+-   Handlers and other – series of functions to handle everything else within
+    the script, from selecting elements on the screen to toggling classes and
+    functions. These functions are used at the top of the script not only to
+    reduce the amount of code but to make the code easier to follow.
+
+1.  “audio.js”
+
+    This script contains all the logic related to the audio aspects of the game.
+
+-   Variable “soundTheme” – set the default sound theme.
+
+-   SOUND_THEMES_OB - contains all the audio files.
+
+-   Functions to play tunes, themes and toggle sound themes.
+
+### Styling
+
+1.  colors.scss - holds a pallet of colours in form of SASS maps.
+
+2.  theming.scss – Allows selection of multiple background image.
+
+3.  variables.scss – defines the variables used for mixins, functions, styling
+    and the layout of the website.
+
+4.  mixins.scss – holds all the functions and mixins used throughout the
+    project.
+
+5.  elements.scss – where the non-tag elements are defined using mixins and
+    variables.
+
+6.  layout.scss – controls the core layout of the website
+
+7.  main.scss – main SCSS file. Puts everything together.
 
 Testing
 =======
 
 ### Logic Debugging
 
-All core functions are equipped with a self-constructed debugging
+\<img src="source/img/md/debug_testing.png"/\>
+
+All the core functions within the main script are equipped with a debugging
+system enable from within the function itself. This method of debugging is fast,
+efficient and prevents the console from being spammed.
+
+In a few lengthy functions where there were simply too many items being logged,
+a tier system was introduced to control the volume of logs coming out of that
+particular function.
 
 ### Responsiveness/Aesthetics Testing
 
@@ -287,4 +410,3 @@ Bugs and problems
 -   XPS 13 - 13 inch 1080p screen set to 125% caused problems
 
 -   firefox nav bar
-
