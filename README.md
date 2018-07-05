@@ -121,7 +121,7 @@ features to make the experience more pleasant and fun for the player.
 
     -   The maximum level has no limit. It could be set to any integer.
 
-3.  Sound themes
+3.  Sound Themes
 
     <img src="source/img/md/soundThemes.gif"/>
 
