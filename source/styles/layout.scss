@@ -151,9 +151,11 @@ span {
 nav {
     height: pix2Rem(50);
     background-color: map-get($color, yankee-blue);
-
-    .navbar {
-        padding: 0px !important; // padding: .5rem 1rem;
+    
+    padding: 0px !important;  // needed to resolve a bug persistent bug on firefox and edge.
+    
+    .navbar-brand {
+        padding-left: 20px;
     }
 
     h2,

@@ -140,9 +140,10 @@ span {
 
 nav {
   height: 3.125rem;
-  background-color: #19283D; }
-  nav .navbar {
-    padding: 0px !important; }
+  background-color: #19283D;
+  padding: 0px !important; }
+  nav .navbar-brand {
+    padding-left: 20px; }
   nav h2,
   nav .nav-items {
     color: #F2CC8F !important; }

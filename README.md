@@ -349,3 +349,120 @@ possible malfunctions and misbehaving elements.
 -   25inch Quad HD 1440p screen
 
 -   13inch Full HD screen of a Dell XPS Ultrabook.
+
+
+Project deployment
+==================
+
+1.  Research
+
+    I started this project by first researching and trying to gather as much
+    information as possible about the game and its rules as I was very much
+    unfamiliar to it. I studied the game quite thoroughly for a while before I
+    started thinking about how I was going to start the project. After that, I
+    identified the key features of the game and started looking into possible
+    ways of coding such features and their feasibilities. For this I had to look
+    into setInterval and setTimeout functions. I spent a good week or so trying
+    to understand what these functions do and how I could use them to my
+    advantage.
+
+1.  Crude Layout
+
+    After I managed to get a clear path in my head, I started researching on
+    styling and possible layouts that I could adopt for this project. There was
+    a vast amount information out there and the possibilities were endless
+    hence, I decide to leave the styling for last as the logic was far more
+    complex and needed more time spent on it. However, I still needed something
+    to work with so I created a very crude layout with the bear minimum that was
+    required, which in this case was just a few buttons and 4 coloured divs.
+
+1.  Logic
+
+    Click/key-press functions:
+
+    Having spent some time on different approaches to this project, I determined
+    that the “click simulation” is the first thing that needs to be tackled.
+    Some sort of a function that once called, would press a key pad and then
+    release it while playing a tune. So, this was the starting point for me, and
+    it resulted in the creation of three very convoluted and long handed
+    functions, which I later on merged into one function. I could invoke the
+    function with an id and it would add the simulate a click on that specific
+    key while playing a tone.
+
+    Simon functions:
+
+    I then moved on to generating a random list of numbers ranging from 1 to 4
+    and using those generated numbers as input IDs(pads) for Simon to simulate
+    clicks on. This was achieved with the setInterval function. This function
+    was later on tweaked to give me “the developer” the ability to skip levels
+    and/or jump to a specific level without having to complete the game or
+    having to go through every level each time, which would have made the
+    testing of the game crippling slow and frustrating. This feature of the
+    function gave me the idea of making it accessible to the player as some sort
+    of hidden console. I later on created a generic version of the function
+    called “cheat()” with the player in mind, but after re-tweaking and
+    fine-tuning my original function ( “simonPlay()” ) I decided to carry on
+    using the main one since the generic function seemed so much like repeated
+    unnecessary code. Either way, I held on to the function just in case if I
+    ever needed to or decided to change the “simonPlay()” function.
+
+    Console expansion:
+
+    At this time, I decided to split the project into two sections, “CONSOLE”
+    and “SIMON”, Simon being the ai player. I soon realised I needed to track
+    whatever that was being done under the bonnet in an informative manner to
+    keep the “developer” and the player in control and aware of what’s going on.
+    Hence, I decided to expand on the console by making it bigger and smarter. I
+    then created a function to push strings and numbers into the console which
+    is scattered through out the project and used within other functions.
+
+    User/player functions:
+
+    I then started putting in place the user/player functions in charge of
+    detecting and recording user selections. After that came the analysis of the
+    collected user data, which had to decide if the player had lost or won the
+    game, failed to get the sequence right, or completed the sequence correctly
+    to be granted permission to advance to the next level.
+
+    Decluttering console:
+
+    After I got the logic working, I started working on multi-functional keys in
+    an effort to reduce the number of buttons on the console. For instance, I
+    merged “START” and “RESET” buttons into a single button by adding a toggle
+    effect, the same approach was taken with the “POWER ON” and “POWER OFF”
+    buttons.
+
+    Cheat console:
+
+    The jQueryUI was used to help with the animation of the hidden cheat
+    console. it was then tested and its logic changed in such a way that it only
+    works when the game is actually in session. The cheat console can also be
+    summoned while the game is switched on but it wont actually do anything
+    until the game has been initiated.
+
+2.  Nav and footer
+
+    Navbar and footer were added and restyled to match the theme of the game.
+
+1.  Responsiveness and fine-tuning
+
+    The website was finally made fully responsive and tested on variety of
+    devices on multiple platforms.
+
+2.  Final deployment (Git/Github)
+
+    Throughout the project git was used to back up the code and then pushed to
+    Github with the total number of commits reaching nearly 40.
+
+Issues and bugs
+===============
+
+-   Items looked very small on high resolution desktop screens (1440p panel) and the  
+    website wouldn’t cover the entire window – this issue was resolved with
+    introduction of media queries directed to the min/max height rather than width
+
+
+-   Issue with items not fitting or sticking out their containers on
+    small-factor high resolution screens (XPS 13 – 13-inch FHD screen) where the
+    scale was set to 125% - this issue was again resolved by introducing more
+    media queries.
