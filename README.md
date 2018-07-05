@@ -247,7 +247,8 @@ Content and file management
 
 The logic is split into two scripts.
 
-1.  “main.js”
+
+1.  **“main.js”**
 
 where all the main logic is located.
 
@@ -284,7 +285,7 @@ The functions within the main script are categorised into four sections.
     functions. These functions are used at the top of the script not only to
     reduce the amount of code but to make the code easier to follow.
 
-1.  “audio.js”
+2.  **“audio.js”**
 
     This script contains all the logic related to the audio aspects of the game.
 
