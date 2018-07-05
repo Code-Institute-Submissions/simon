@@ -251,7 +251,7 @@ The logic is split into two scripts.
 
 where all the main logic is located.
 
->   The functions within the main script are categorised into four sections.
+The functions within the main script are categorised into four sections.
 
 -   General – are the functions that are used through out the script and within
     other functions. To name a few
