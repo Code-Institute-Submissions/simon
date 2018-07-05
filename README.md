@@ -75,7 +75,7 @@ features to make the experience more pleasant and fun for the player.
 
 9.  Strict mode
 
-    <img src="source/img/md/Strict_lose.gif"/>
+    <img src="source/img/md/strict_lose.gif"/>
 
     While this mode is active, any wrong selections made by the player will end
     the game abruptly, as opposed to the ‘normal mode’ where the sequence will
