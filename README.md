@@ -467,3 +467,12 @@ Issues and bugs
     small-factor high resolution screens (XPS 13 – 13-inch FHD screen) where the
     scale was set to 125% - this issue was again resolved by introducing more
     media queries.
+
+
+-   Media (audio) files only cache in once they’re played and this can cause a
+    slight delay when pressing keys after loading the website for the first
+    time. To counter this, I initially installed a loading page at one point but
+    it was later on removed as it didn’t seem to make any difference. no other
+    solutions were found for this minor annoyance.
+
+
