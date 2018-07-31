@@ -352,7 +352,7 @@ possible malfunctions and misbehaving elements.
 -   13inch Full HD screen of a Dell XPS Ultrabook.
 
 
-Project deployment
+Project Approach
 ==================
 
 1.  Research
@@ -475,4 +475,11 @@ Issues and bugs
     it was later on removed as it didn’t seem to make any difference. no other
     solutions were found for this minor annoyance.
 
+
+Project Deployment
+==================
+
+The final version of the project was deployed to Github.com using its free
+hosting feature “GitHub Pages” and can be viewed live
+[here](https://damianism.github.io/simon/).
 
